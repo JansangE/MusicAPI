@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using EP.MAINAPP.ViewModels;
 
-namespace EP.MAINAPP
+namespace EP.MAINAPP.Views.Artist
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ViewCreateUpdateArtist.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ViewCreateUpdateArtist : UserControl
     {
-        public MainWindow()
+        public ViewCreateUpdateArtist()
         {
             InitializeComponent();
-            DataContext = new ViewModelMain();
         }
     }
 }

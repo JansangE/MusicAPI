@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using EP.MAINAPP.ViewModels;
 
-namespace EP.MAINAPP
+namespace EP.MAINAPP.Views.LChart
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ViewLChart.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ViewLChart : UserControl
     {
-        public MainWindow()
+        public ViewLChart()
         {
             InitializeComponent();
-            DataContext = new ViewModelMain();
         }
     }
 }

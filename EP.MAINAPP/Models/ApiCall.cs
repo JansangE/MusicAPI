@@ -1,11 +1,18 @@
-﻿using EP.DOMAIN;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using EP.DOMAIN;
 
-namespace EP.APICall
+namespace EP.MAINAPP.Models
 {
-    public class ApiCall : IDisposable
+    public class ApiCall
     {
         private string _URL;
         private HttpClient _httpClient;
+        private string _Class;
 
 
         public ApiCall(string Url)

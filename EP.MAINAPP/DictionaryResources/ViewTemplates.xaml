@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Views="clr-namespace:EP.MAINAPP.Views"
+                    xmlns:ViewArtist="clr-namespace:EP.MAINAPP.Views.Artist"
+                    xmlns:ViewComposer="clr-namespace:EP.MAINAPP.Views.Composer"
+                    xmlns:ViewLChart="clr-namespace:EP.MAINAPP.Views.LChart"
+                    xmlns:ViewPiece="clr-namespace:EP.MAINAPP.Views.Piece"
+                    xmlns:ViewType="clr-namespace:EP.MAINAPP.Views.Type"
+                    xmlns:ViewModels="clr-namespace:EP.MAINAPP.ViewModels"
+                    xmlns:ViewModelArtist="clr-namespace:EP.MAINAPP.ViewModels.Artist"
+                    xmlns:ViewModelComposer="clr-namespace:EP.MAINAPP.ViewModels.Composer"
+                    xmlns:ViewModelLChart="clr-namespace:EP.MAINAPP.ViewModels.LChart"
+                    xmlns:ViewModelPiece="clr-namespace:EP.MAINAPP.ViewModels.Piece"
+                    xmlns:ViewModelType="clr-namespace:EP.MAINAPP.ViewModels.Type">
+    <DataTemplate DataType="{x:Type ViewModelArtist:ViewModelArtistData}">
+        <ViewArtist:ViewArtistData/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelComposer:ViewModelComposerData}">
+        <ViewComposer:ViewComposerData/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelLChart:ViewModelLChart}">
+        <ViewLChart:ViewLChart/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelPiece:ViewModelPieceData}">
+        <ViewPiece:ViewPieceData/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelType:ViewModelTypeData}">
+        <ViewType:ViewTypeData/>
+    </DataTemplate>
+    
+</ResourceDictionary>

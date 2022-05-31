@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:EP.MAINAPP"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DictionaryResources/BasicStyles.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="DictionaryResources/ViewTemplates.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
