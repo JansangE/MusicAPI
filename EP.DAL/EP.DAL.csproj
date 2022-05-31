@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EP.APICall\EP.APICall.csproj" />
     <ProjectReference Include="..\EP.DOMAIN\EP.DOMAIN.csproj" />
   </ItemGroup>
 

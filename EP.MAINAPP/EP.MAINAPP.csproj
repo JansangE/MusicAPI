@@ -8,7 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <ProjectReference Include="..\EP.BLL\EP.BLL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\Artist\" />
+    <Folder Include="ViewModels\LChart\" />
+    <Folder Include="ViewModels\Type\" />
+    <Folder Include="ViewModels\Composer\" />
+    <Folder Include="ViewModels\Piece\" />
+    <Folder Include="Views\Artist\" />
+    <Folder Include="Views\Composer\" />
+    <Folder Include="Views\LChart\" />
+    <Folder Include="Views\Piece\" />
+    <Folder Include="Views\Type\" />
   </ItemGroup>
 
 </Project>
