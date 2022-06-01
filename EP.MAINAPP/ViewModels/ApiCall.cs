@@ -6,13 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using EP.DOMAIN;
 
-namespace EP.MAINAPP.Models
+namespace EP.MAINAPP.ViewModels
 {
-    public class ApiCall
+    public class ApiCall : IDisposable
     {
         private string _URL;
         private HttpClient _httpClient;
-        private string _Class;
 
 
         public ApiCall(string Url)
@@ -27,13 +26,13 @@ namespace EP.MAINAPP.Models
         }
 
 
-        public async Task<List<Piece>> GetAllPieces()
+        public async Task<List<DOMAIN.Piece>> GetAllPieces()
         {
-            List<Piece> pieces = new List<Piece>();
+            List<DOMAIN.Piece> pieces = new List<DOMAIN.Piece>();
             HttpResponseMessage response = await _httpClient.GetAsync($"{_URL}/pieces");
             if (response.IsSuccessStatusCode)
             {
-                pieces = await response.Content.ReadAsAsync<List<Piece>>();
+                pieces = await response.Content.ReadAsAsync<List<DOMAIN.Piece>>();
             }
             else
             {
@@ -42,6 +41,23 @@ namespace EP.MAINAPP.Models
 
             return pieces;
         }
+
+        public async Task<List<DOMAIN.Piece>> GetAllArtists()
+        {
+            List<DOMAIN.Piece> pieces = new List<DOMAIN.Piece>();
+            HttpResponseMessage response = await _httpClient.GetAsync($"{_URL}/artist");
+            if (response.IsSuccessStatusCode)
+            {
+                pieces = await response.Content.ReadAsAsync<List<DOMAIN.Piece>>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return pieces;
+        }
+
         public void Dispose()
         {
             throw new NotImplementedException();

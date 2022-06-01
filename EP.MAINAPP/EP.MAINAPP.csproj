@@ -9,10 +9,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EP.BLL\EP.BLL.csproj" />
+    <ProjectReference Include="..\EP.DOMAIN\EP.DOMAIN.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

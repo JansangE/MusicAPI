@@ -70,6 +70,14 @@ namespace EP.DAL
                 .Property(x => x.NamePiece)
                 .IsRequired()
                 .HasMaxLength(150);
+
+            modelBuilder.Entity<Piece>()
+                .Property(x => x.ComposerID)
+                .IsRequired();
+
+            modelBuilder.Entity<Piece>()
+                .Property(x => x.TypeID)
+                .IsRequired();
             #endregion
 
             #endregion

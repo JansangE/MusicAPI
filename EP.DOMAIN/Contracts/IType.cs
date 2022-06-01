@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace EP.DOMAIN.Contracts
 {
-    public interface IPiece : IGeneric<Piece>
+    public interface IType : IGeneric<Type>
     {
+
     }
 }
