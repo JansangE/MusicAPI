@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DictionaryResources\Images\add.png" />
+    <None Remove="DictionaryResources\Images\delete.png" />
+    <None Remove="DictionaryResources\Images\update.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EP.BLL\EP.BLL.csproj" />
     <ProjectReference Include="..\EP.DOMAIN\EP.DOMAIN.csproj" />
   </ItemGroup>
@@ -20,6 +26,12 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="DictionaryResources\Images\add.png" />
+    <Resource Include="DictionaryResources\Images\delete.png" />
+    <Resource Include="DictionaryResources\Images\update.png" />
   </ItemGroup>
 
 </Project>

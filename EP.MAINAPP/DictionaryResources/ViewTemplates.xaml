@@ -6,6 +6,7 @@
                     xmlns:ViewLChart="clr-namespace:EP.MAINAPP.Views.LChart"
                     xmlns:ViewPiece="clr-namespace:EP.MAINAPP.Views.Piece"
                     xmlns:ViewType="clr-namespace:EP.MAINAPP.Views.Type"
+
                     xmlns:ViewModels="clr-namespace:EP.MAINAPP.ViewModels"
                     xmlns:ViewModelArtist="clr-namespace:EP.MAINAPP.ViewModels.Artist"
                     xmlns:ViewModelComposer="clr-namespace:EP.MAINAPP.ViewModels.Composer"
@@ -30,6 +31,10 @@
 
     <DataTemplate DataType="{x:Type ViewModelType:ViewModelTypeData}">
         <ViewType:ViewTypeData/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelComposer:ViewModelCreateUpdateComposer}">
+        <ViewComposer:ViewCreateUpdateComposer/>
     </DataTemplate>
     
 </ResourceDictionary>

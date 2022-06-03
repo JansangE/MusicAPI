@@ -23,6 +23,8 @@ namespace EP.MAINAPP.ViewModels
         public DelegateCommand DisplayPieceCommand { get; set; }
         public DelegateCommand DisplayTypeCommand { get; set; }
 
+        public DelegateCommand DisplayCreateUpdateComposerCommand { get; set; }
+
         public ViewModelMain()
         {
             DisplayArtistCommand = new DelegateCommand(DisplayArtistStartup);
@@ -30,9 +32,11 @@ namespace EP.MAINAPP.ViewModels
             DisplayLChartCommand = new DelegateCommand(DisplayLChart);
             DisplayPieceCommand = new DelegateCommand(DisplayPieceStartup);
             DisplayTypeCommand = new DelegateCommand(DisplayTypeStartup);
+
+            DisplayCreateUpdateComposerCommand = new DelegateCommand(DisplayCreateUpdateComposer);
         }
 
-       
+
         public ViewModelBase ViewModel
         {
             get => _viewModel;
@@ -42,14 +46,6 @@ namespace EP.MAINAPP.ViewModels
                 OnPropertyChanged();
             }
         }
-       
-
-        
-
-        
-
-       
-
         
 
         private void DisplayArtistStartup()
@@ -75,6 +71,11 @@ namespace EP.MAINAPP.ViewModels
         private void DisplayTypeStartup()
         {
             this.ViewModel = new ViewModelTypeData();
+        }
+
+        private void DisplayCreateUpdateComposer()
+        {
+            this.ViewModel = new ViewModelCreateUpdateComposer();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -24,8 +25,30 @@ namespace EP.MAINAPP.ViewModels
         {
             get => _URL;
         }
+        //Artist
 
+        //Composer
+        public async Task<ObservableCollection<DOMAIN.Composer>> GetAllComposer()
+        {
+            ObservableCollection<DOMAIN.Composer> composer = new ObservableCollection<DOMAIN.Composer>();
+            HttpResponseMessage response = await _httpClient.GetAsync($"{_URL}/composers");
+            if (response.IsSuccessStatusCode)
+            {
+                composer = await response.Content.ReadAsAsync<ObservableCollection<DOMAIN.Composer>>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
 
+            return composer;
+        }
+
+        //LChart
+
+        //Type
+
+        //Piece
         public async Task<List<DOMAIN.Piece>> GetAllPieces()
         {
             List<DOMAIN.Piece> pieces = new List<DOMAIN.Piece>();
