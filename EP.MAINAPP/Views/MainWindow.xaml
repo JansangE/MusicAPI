@@ -48,19 +48,11 @@
 
             </ContentControl>
             <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-
                 <ScrollViewer Grid.Row="0" >
                     <ContentControl x:Name="ctnViews" Content="{Binding ViewModel}" 
                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
                 </ScrollViewer>
-                <StackPanel Grid.Row="1">
-
-                </StackPanel>
             </Grid>
             
         </Grid>

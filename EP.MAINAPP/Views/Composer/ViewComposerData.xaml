@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:EP.MAINAPP.Views.Composer"
              xmlns:mainapp="clr-namespace:EP.MAINAPP"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="307" d:DesignWidth="623">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="6*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <ListView Grid.Row="0" ItemsSource="{Binding ListComposers}"
@@ -26,7 +26,7 @@
                     <GridViewColumn Header="First name" DisplayMemberBinding="{Binding FirstName}" Width="Auto"/>
                     <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding LastName}" Width="Auto"/>
                     <GridViewColumn Header="Nick name" DisplayMemberBinding="{Binding NickName}" Width="Auto"/>
-                    <GridViewColumn Header="Date of Birth" DisplayMemberBinding="{Binding Birthday, StringFormat=d}" Width="Auto"/>
+                    <GridViewColumn Header="Date of Birth" DisplayMemberBinding="{Binding Birthday, Path=Date, StringFormat='{}{0:dd.MM.yyyy}'}" Width="Auto"/>
                 </GridView>
             </ListView.View>
         </ListView>

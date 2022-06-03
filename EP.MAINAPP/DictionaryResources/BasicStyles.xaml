@@ -4,19 +4,19 @@
     <!-- ICONS -->
     <Style x:Key="IconAdd" TargetType="{x:Type Image}">
         <Setter Property="Source" Value="Images/add.png"/>
-        <Setter Property="Width" Value="80"/>
+        <Setter Property="Width" Value="30"/>
         <Setter Property="Margin" Value="20,0"/>
     </Style>
 
     <Style x:Key="IconDelete"  TargetType="{x:Type Image}">
         <Setter Property="Source" Value="Images/delete.png"/>
-        <Setter Property="Width" Value="80"/>
+        <Setter Property="Width" Value="30"/>
         <Setter Property="Margin" Value="20,0"/>
     </Style>
 
     <Style x:Key="IconUpdate"  TargetType="{x:Type Image}">
         <Setter Property="Source" Value="Images/update.png"/>
-        <Setter Property="Width" Value="80"/>
+        <Setter Property="Width" Value="30"/>
         <Setter Property="Margin" Value="20,0"/>
     </Style>
 
