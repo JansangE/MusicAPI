@@ -25,6 +25,9 @@ namespace EP.MAINAPP.ViewModels
 
         public DelegateCommand DisplayCreateUpdateComposerCommand { get; set; }
 
+
+        //CRUD Composer
+
         public ViewModelMain()
         {
             DisplayArtistCommand = new DelegateCommand(DisplayArtistStartup);
@@ -34,6 +37,9 @@ namespace EP.MAINAPP.ViewModels
             DisplayTypeCommand = new DelegateCommand(DisplayTypeStartup);
 
             DisplayCreateUpdateComposerCommand = new DelegateCommand(DisplayCreateUpdateComposer);
+
+            //CRUD Composer
+            
         }
 
 
@@ -75,7 +81,9 @@ namespace EP.MAINAPP.ViewModels
 
         private void DisplayCreateUpdateComposer()
         {
+
             this.ViewModel = new ViewModelCreateUpdateComposer();
         }
+
     }
 }

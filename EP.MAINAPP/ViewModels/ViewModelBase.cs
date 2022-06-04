@@ -9,8 +9,13 @@ using EP.MAINAPP.Annotations;
 
 namespace EP.MAINAPP.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
+
+        public ViewModelBase()
+        {
+            
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

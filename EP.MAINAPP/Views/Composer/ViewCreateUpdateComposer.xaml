@@ -4,8 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EP.MAINAPP.Views.Composer"
+             xmlns:viewModel="clr-namespace:EP.MAINAPP.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="307" d:DesignWidth="623" Background="AliceBlue">
+    <UserControl.Resources>
+        <viewModel:MultiValuesConverter x:Key="Converter"/>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -31,7 +36,7 @@
         <TextBox x:Name="textFirstName" Grid.Row="1" Grid.Column="2" 
                  VerticalAlignment="Center" 
                  HorizontalAlignment="Right" 
-                 Text="First name" 
+                 Text="" 
                  Width="150" Height="30" 
                  VerticalContentAlignment="Center" FontSize="15"/>
 
@@ -65,7 +70,15 @@
         
         <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" 
                 Height="30"
-                Content="Submit" FontSize="15">
+                Content="Submit" FontSize="15"
+                Command="{Binding AddComposerCommand}">
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource Converter}">
+                    <Binding ElementName="textFirstName" Path="Text"/>
+                    <Binding ElementName="textLastName" Path="Text"/>
+                    <Binding ElementName="textBirthDay" Path="Text"/>
+                </MultiBinding>
+            </Button.CommandParameter>
         </Button>
         <Button Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" 
                 Height="30"

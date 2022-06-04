@@ -8,35 +8,21 @@ using EP.DOMAIN;
 
 namespace EP.MAINAPP.ViewModels.Composer
 {
-    public class ViewModelComposerData : ViewModelBase
+    public class ViewModelComposerData : ViewModelContainer
     {
-        private ObservableCollection<DOMAIN.Composer> listComposers;
         
-
-        public ViewModelComposerData()
+        public ViewModelComposerData() : base()
         {
-            listComposers = new ObservableCollection<DOMAIN.Composer>();
             Init();
-        }
-
-        public ObservableCollection<DOMAIN.Composer> ListComposers
-        {
-            get => listComposers;
-            set
-            {
-                listComposers = value;
-                OnPropertyChanged();
-            }
         }
 
         private async Task Init()
         {
-            using (ApiCall ac = new ApiCall(Url: "http://localhost:5106"))
+            using (ApiCall ac = new ApiCall())
             {
-                listComposers = await ac.GetAllComposer();
+                ListComposers = await ac.GetAllComposer();
                 OnPropertyChanged(nameof(ListComposers));
             }
-
         }
     }
 }

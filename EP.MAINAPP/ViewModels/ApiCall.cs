@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using EP.DOMAIN;
+using Newtonsoft.Json;
 
 namespace EP.MAINAPP.ViewModels
 {
@@ -15,9 +17,9 @@ namespace EP.MAINAPP.ViewModels
         private HttpClient _httpClient;
 
 
-        public ApiCall(string Url)
+        public ApiCall(/*string Url*/)
         {
-            _URL = Url;
+            _URL = "http://localhost:5106";
             _httpClient = new HttpClient();
         }
 
@@ -42,6 +44,33 @@ namespace EP.MAINAPP.ViewModels
             }
 
             return composer;
+        }
+
+        public async Task<DOMAIN.Composer> AddComposer(DOMAIN.Composer composer)
+        {
+            var newComposer = new DOMAIN.Composer();
+
+            var myContent = JsonConvert.SerializeObject(composer);
+
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+
+            var byeContent = new ByteArrayContent(buffer);
+
+            byeContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            
+            HttpResponseMessage response = await _httpClient.PostAsync($"{_URL}/composer", byeContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                newComposer = await response.Content.ReadAsAsync<DOMAIN.Composer>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return newComposer;
         }
 
         //LChart
@@ -83,7 +112,7 @@ namespace EP.MAINAPP.ViewModels
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _httpClient.Dispose();
         }
     }
 }

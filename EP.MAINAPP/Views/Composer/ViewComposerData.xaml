@@ -26,7 +26,7 @@
                     <GridViewColumn Header="First name" DisplayMemberBinding="{Binding FirstName}" Width="Auto"/>
                     <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding LastName}" Width="Auto"/>
                     <GridViewColumn Header="Nick name" DisplayMemberBinding="{Binding NickName}" Width="Auto"/>
-                    <GridViewColumn Header="Date of Birth" DisplayMemberBinding="{Binding Birthday, Path=Date, StringFormat='{}{0:dd.MM.yyyy}'}" Width="Auto"/>
+                    <GridViewColumn Header="Date of Birth" DisplayMemberBinding="{Binding Birthday, StringFormat='{}{0:dd.MM.yyyy}'}" Width="Auto"/>
                 </GridView>
             </ListView.View>
         </ListView>
