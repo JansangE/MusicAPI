@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EP.MAINAPP.Views.Composer"
+             xmlns:local="clr-namespace:EP.MAINAPP.Views"
              xmlns:viewModel="clr-namespace:EP.MAINAPP.ViewModels"
+             xmlns:mainapp="clr-namespace:EP.MAINAPP"
              mc:Ignorable="d" 
              d:DesignHeight="307" d:DesignWidth="623" Background="AliceBlue">
     <UserControl.Resources>
@@ -36,7 +37,7 @@
         <TextBox x:Name="textFirstName" Grid.Row="1" Grid.Column="2" 
                  VerticalAlignment="Center" 
                  HorizontalAlignment="Right" 
-                 Text="" 
+                 Text="{Binding Composer.FirstName, Mode=TwoWay}" 
                  Width="150" Height="30" 
                  VerticalContentAlignment="Center" FontSize="15"/>
 
@@ -49,7 +50,7 @@
         <TextBox x:Name="textLastName" Grid.Row="2" Grid.Column="2" 
                  VerticalAlignment="Center" 
                  HorizontalAlignment="Right" 
-                 Text="Last name" 
+                 Text="{Binding Composer.LastName, Mode=TwoWay}" 
                  Width="150" Height="30" 
                  VerticalContentAlignment="Center" FontSize="15"/>
 
@@ -71,18 +72,23 @@
         <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" 
                 Height="30"
                 Content="Submit" FontSize="15"
-                Command="{Binding AddComposerCommand}">
-            <Button.CommandParameter>
+                Command="{Binding DataContext.ConfirmComposerCommand,
+                        RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
+                        Mode=OneWay}">
+            <!--<Button.CommandParameter>
                 <MultiBinding Converter="{StaticResource Converter}">
                     <Binding ElementName="textFirstName" Path="Text"/>
                     <Binding ElementName="textLastName" Path="Text"/>
                     <Binding ElementName="textBirthDay" Path="Text"/>
                 </MultiBinding>
-            </Button.CommandParameter>
+            </Button.CommandParameter>-->
         </Button>
         <Button Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" 
                 Height="30"
-                Content="Back" FontSize="15">
+                Content="Back" FontSize="15"
+                Command="{Binding DataContext.DisplayComposerCommand,
+                        RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
+                        Mode=OneWay}">
 
         </Button>
     </Grid>

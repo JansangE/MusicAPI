@@ -33,7 +33,11 @@
         <ViewType:ViewTypeData/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type ViewModelComposer:ViewModelCreateUpdateComposer}">
+    <DataTemplate DataType="{x:Type ViewModelComposer:ViewModelCreateComposer}">
+        <ViewComposer:ViewCreateUpdateComposer/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelComposer:ViewModelUpdateComposer}">
         <ViewComposer:ViewCreateUpdateComposer/>
     </DataTemplate>
     

@@ -9,12 +9,13 @@ namespace EP.MAINAPP.ViewModels
 {
     public abstract class ViewModelContainer : ViewModelBase
     {
+        private DOMAIN.Composer _composer;
         public DOMAIN.Composer Composer
         {
-            get => Composer;
+            get => _composer;
             set
             {
-                Composer = value;
+                _composer = value;
                 OnPropertyChanged();
             }
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using EP.DOMAIN;
 using EP.MAINAPP.ViewModels.Artist;
 using EP.MAINAPP.ViewModels.Composer;
@@ -17,13 +18,25 @@ namespace EP.MAINAPP.ViewModels
     {
         private ViewModelBase _viewModel;
 
-        public DelegateCommand DisplayArtistCommand { get; set; }
+        #region DeledateCommand
+
+        #region Composer
         public DelegateCommand DisplayComposerCommand { get; set; }
+        public DelegateCommand DisplayCreateComposerCommand { get; set; }
+        public DelegateCommand DisplayUpdateComposerCommand { get; set; }
+        public DelegateCommand DeleteComposerCommand { get; set; }
+        public DelegateCommand ConfirmComposerCommand { get; set; }
+        #endregion
+
+
+        #endregion
+        public DelegateCommand DisplayArtistCommand { get; set; }
+        
         public DelegateCommand DisplayLChartCommand { get; set; }
         public DelegateCommand DisplayPieceCommand { get; set; }
         public DelegateCommand DisplayTypeCommand { get; set; }
 
-        public DelegateCommand DisplayCreateUpdateComposerCommand { get; set; }
+        
 
 
         //CRUD Composer
@@ -31,15 +44,18 @@ namespace EP.MAINAPP.ViewModels
         public ViewModelMain()
         {
             DisplayArtistCommand = new DelegateCommand(DisplayArtistStartup);
-            DisplayComposerCommand = new DelegateCommand(DisplayComposerStartup);
+            
             DisplayLChartCommand = new DelegateCommand(DisplayLChart);
             DisplayPieceCommand = new DelegateCommand(DisplayPieceStartup);
             DisplayTypeCommand = new DelegateCommand(DisplayTypeStartup);
 
-            DisplayCreateUpdateComposerCommand = new DelegateCommand(DisplayCreateUpdateComposer);
+            //Composer
+            DisplayComposerCommand = new DelegateCommand(DisplayComposerStartup);
+            DisplayCreateComposerCommand = new DelegateCommand(DisplayCreateComposer);
+            DisplayUpdateComposerCommand = new DelegateCommand(DisplayUpdateComposer);
+            DeleteComposerCommand = new DelegateCommand(DeleteComposer);
 
-            //CRUD Composer
-            
+
         }
 
 
@@ -79,11 +95,44 @@ namespace EP.MAINAPP.ViewModels
             this.ViewModel = new ViewModelTypeData();
         }
 
-        private void DisplayCreateUpdateComposer()
+        //Methode Composer
+        private void DisplayCreateComposer()
         {
-
-            this.ViewModel = new ViewModelCreateUpdateComposer();
+            this.ViewModel = new ViewModelCreateComposer();
+            ConfirmComposerCommand = new DelegateCommand(CreateComposer);
         }
 
+        private void DisplayUpdateComposer()
+        {
+            this.ViewModel = new ViewModelUpdateComposer();
+            ConfirmComposerCommand = new DelegateCommand(UpdateComposer);
+        }
+
+        private void CreateComposer()
+        {
+            var newComposer = ((ViewModelCreateComposer)this.ViewModel).Composer;
+            var result = (this.ViewModel as ViewModelCreateComposer).AddComposerMethode(newComposer);
+
+            if (result is null)
+            {
+                MessageBox.Show("Something went wrong");
+            }
+            else
+            {
+                MessageBox.Show($"{newComposer.FirstName }  {newComposer.LastName} is added to DB");
+                DisplayComposerStartup();
+            }
+
+        }
+
+        private void UpdateComposer()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DeleteComposer()
+        {
+
+        }
     }
 }
