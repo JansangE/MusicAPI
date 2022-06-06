@@ -7,15 +7,27 @@ using System.Threading.Tasks;
 
 namespace EP.MAINAPP.ViewModels
 {
-    public abstract class ViewModelContainer : ViewModelBase
+    public abstract class AbstractViewModelContainer : ViewModelBase
     {
         private DOMAIN.Composer _composer;
+        protected DOMAIN.Composer _SelectedComposer;
+
         public DOMAIN.Composer Composer
         {
             get => _composer;
             set
             {
                 _composer = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DOMAIN.Composer SelectedComposer
+        {
+            get => _SelectedComposer;
+            set
+            {
+                _SelectedComposer = value;
                 OnPropertyChanged();
             }
         }
@@ -28,7 +40,7 @@ namespace EP.MAINAPP.ViewModels
 
       
 
-        public ViewModelContainer() : base()
+        public AbstractViewModelContainer() : base()
         {
             //ListComposers = new ObservableCollection<DOMAIN.Composer>();
         }

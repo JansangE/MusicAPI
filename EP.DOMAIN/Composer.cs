@@ -6,7 +6,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string NickName { get; set; }
-        public DateTime Birtday { get; set; }
+        public DateTime? Birthday { get; set; }
 
         public ICollection<Piece> Pieces { get; set; }
     }

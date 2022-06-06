@@ -8,7 +8,7 @@ using EP.DOMAIN;
 
 namespace EP.MAINAPP.ViewModels.Composer
 {
-    public class ViewModelComposerData : ViewModelContainer
+    public class ViewModelComposerData : AbstractViewModelContainer
     {
         
         public ViewModelComposerData() : base()

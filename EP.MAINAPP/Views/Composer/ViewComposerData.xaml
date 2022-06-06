@@ -13,7 +13,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <ListView Grid.Row="0" ItemsSource="{Binding ListComposers}"
-                  SelectedItem="{Binding SelectedPiece}"
+                  SelectedItem="{Binding SelectedComposer, Mode=TwoWay}"
                   VerticalAlignment="Stretch"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -26,7 +26,7 @@
                     <GridViewColumn Header="First name" DisplayMemberBinding="{Binding FirstName}" Width="Auto"/>
                     <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding LastName}" Width="Auto"/>
                     <GridViewColumn Header="Nick name" DisplayMemberBinding="{Binding NickName}" Width="Auto"/>
-                    <GridViewColumn Header="Date of Birth" DisplayMemberBinding="{Binding Birthday, StringFormat='{}{0:dd.MM.yyyy}'}" Width="Auto"/>
+                    <GridViewColumn Header="Date of Birth" DisplayMemberBinding="{Binding Birthday, StringFormat=d}" Width="Auto"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -41,8 +41,25 @@
                     </MouseBinding>
                 </Image.InputBindings>
             </Image>
-            <Image Style="{DynamicResource IconUpdate}"></Image>
-            <Image Style="{DynamicResource IconDelete}"></Image>
+            <Image Style="{DynamicResource IconUpdate}">
+                <Image.InputBindings>
+                    <MouseBinding Gesture="LeftClick"
+                                  Command="{Binding DataContext.DisplayUpdateComposerCommand,
+                        RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
+                        Mode=OneWay}">
+                    </MouseBinding>
+                </Image.InputBindings>
+               
+            </Image>
+            <Image Style="{DynamicResource IconDelete}">
+                <Image.InputBindings>
+                    <MouseBinding Gesture="LeftClick"
+                                  Command="{Binding DataContext.DeleteComposerCommand,
+                        RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
+                        Mode=OneWay}">
+                    </MouseBinding>
+                </Image.InputBindings>
+            </Image>
 
         </StackPanel>
     </Grid>

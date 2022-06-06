@@ -98,20 +98,30 @@ namespace EP.MAINAPP.ViewModels
         //Methode Composer
         private void DisplayCreateComposer()
         {
-            this.ViewModel = new ViewModelCreateComposer();
+            this.ViewModel = new ViewModelCRUDComposer();
             ConfirmComposerCommand = new DelegateCommand(CreateComposer);
         }
 
         private void DisplayUpdateComposer()
         {
-            this.ViewModel = new ViewModelUpdateComposer();
-            ConfirmComposerCommand = new DelegateCommand(UpdateComposer);
+            var selectedComposer = ((AbstractViewModelContainer)this.ViewModel).SelectedComposer;
+            if (selectedComposer is not null)
+            {
+                this.ViewModel = new ViewModelCRUDComposer(selectedComposer);
+                ConfirmComposerCommand = new DelegateCommand(UpdateComposer);
+            }
+            else
+            {
+                MessageBox.Show("Please select a composer that you want to update");
+            }
+            //this.ViewModel = new ViewModelUpdateComposer();
+           
         }
 
         private void CreateComposer()
         {
-            var newComposer = ((ViewModelCreateComposer)this.ViewModel).Composer;
-            var result = (this.ViewModel as ViewModelCreateComposer).AddComposerMethode(newComposer);
+            var newComposer = ((ViewModelCRUDComposer)this.ViewModel).Composer;
+            var result = (this.ViewModel as ViewModelCRUDComposer).AddComposerMethode(newComposer);
 
             if (result is null)
             {
@@ -125,13 +135,44 @@ namespace EP.MAINAPP.ViewModels
 
         }
 
-        private void UpdateComposer()
+        private async void UpdateComposer()
         {
-            throw new NotImplementedException();
+            var selectedComposer = ((ViewModelCRUDComposer)this.ViewModel).Composer;
+
+            var result = ((ViewModelCRUDComposer)this.ViewModel).UpdateComposerMethode(selectedComposer);
+
+            if (result is null)
+            {
+                MessageBox.Show("Something went wrong");
+            }
+            else
+            {
+
+                MessageBox.Show($"{selectedComposer.FirstName }  {selectedComposer.LastName} is updated to DB");
+                DisplayComposerStartup();
+            }
         }
 
-        private void DeleteComposer()
+        private async void DeleteComposer()
         {
+            var selectedComposer = ((AbstractViewModelContainer)this.ViewModel).SelectedComposer;
+            
+
+            if (selectedComposer is null)
+            {
+                MessageBox.Show("PLease select a composer that you want to delete");
+            }
+            else
+            {
+                this.ViewModel = new ViewModelCRUDComposer(selectedComposer);
+
+                var result = ((ViewModelCRUDComposer)this.ViewModel).DeleteComposerMethode(selectedComposer);
+
+                MessageBox.Show($"{selectedComposer.FirstName}  {selectedComposer.LastName} is deleted from DB");
+                DisplayComposerStartup();
+
+            }
+
 
         }
     }

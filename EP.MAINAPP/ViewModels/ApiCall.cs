@@ -46,20 +46,32 @@ namespace EP.MAINAPP.ViewModels
             return composer;
         }
 
+        public async Task<DOMAIN.Composer> GetSelectedComposer(DOMAIN.Composer composer)
+        {
+            DOMAIN.Composer selectedComposer = composer;
+
+            HttpResponseMessage response = await _httpClient.GetAsync($"{_URL}/composer?id={selectedComposer.ID}");
+            if (response.IsSuccessStatusCode)
+            {
+                composer = await response.Content.ReadAsAsync<DOMAIN.Composer>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return composer;
+        }
+
         public async Task<DOMAIN.Composer> AddComposer(DOMAIN.Composer composer)
         {
             var newComposer = new DOMAIN.Composer();
-
             var myContent = JsonConvert.SerializeObject(composer);
-
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var byeContent = new ByteArrayContent(buffer);
-
-            byeContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-            
-            HttpResponseMessage response = await _httpClient.PostAsync($"{_URL}/composer", byeContent);
+            HttpResponseMessage response = await _httpClient.PostAsync($"{_URL}/composer", byteContent);
 
             if (response.IsSuccessStatusCode)
             {
@@ -71,6 +83,49 @@ namespace EP.MAINAPP.ViewModels
             }
 
             return newComposer;
+        }
+
+        public async Task<DOMAIN.Composer> UpdateComposer(DOMAIN.Composer composer)
+        {
+            var newComposer = new DOMAIN.Composer();
+            var myContent = JsonConvert.SerializeObject(composer);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            HttpResponseMessage response = await _httpClient.PutAsync($"{_URL}/composer?id={composer.ID}", byteContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                newComposer = await response.Content.ReadAsAsync<DOMAIN.Composer>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return newComposer;
+        }
+
+        public async Task<string> DeleteComposer(DOMAIN.Composer composer)
+        {
+            string result = null;
+            var selectedComposer = new DOMAIN.Composer();
+
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{_URL}/composer?id={composer.ID}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                //selectedComposer = await response.Content.ReadAsAsync<DOMAIN.Composer>();
+                result = $"{selectedComposer.NickName} is deleted from DB";
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+                result = "API DOES NOT RESPOND!";
+            }
+
+            return result;
         }
 
         //LChart
