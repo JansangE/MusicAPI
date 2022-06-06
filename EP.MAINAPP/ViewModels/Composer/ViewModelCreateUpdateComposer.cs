@@ -10,14 +10,14 @@ using Prism.Commands;
 
 namespace EP.MAINAPP.ViewModels.Composer
 {
-    public class ViewModelCRUDComposer : AbstractViewModelContainer
+    public class ViewModelCreateUpdateComposer : AbstractViewModelContainer
     {
-        public ViewModelCRUDComposer()
+        public ViewModelCreateUpdateComposer()
         {
             Composer = new DOMAIN.Composer();
         }
 
-        public ViewModelCRUDComposer(DOMAIN.Composer composer)
+        public ViewModelCreateUpdateComposer(DOMAIN.Composer composer)
         {
             GetComposer(composer);
         }
@@ -84,19 +84,6 @@ namespace EP.MAINAPP.ViewModels.Composer
             else
             {
                 result = "Some field is not correct";
-            }
-
-            return result;
-        }
-
-        public async Task<string> DeleteComposerMethode(DOMAIN.Composer composer)
-        {
-            string result = null;
-
-            using (ApiCall ac = new ApiCall())
-            {
-                result = await ac.DeleteComposer(composer);
-                OnPropertyChanged(nameof(ListComposers));
             }
 
             return result;

@@ -12,12 +12,35 @@ namespace EP.MAINAPP.ViewModels
         private DOMAIN.Composer _composer;
         protected DOMAIN.Composer _SelectedComposer;
 
+        private DOMAIN.Artist _Artist;
+        protected DOMAIN.Artist _selectedArtist;
+
         public DOMAIN.Composer Composer
         {
             get => _composer;
             set
             {
                 _composer = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DOMAIN.Artist SelectedArtist
+        {
+            get => _selectedArtist;
+            set
+            {
+                _selectedArtist = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DOMAIN.Artist Artist
+        {
+            get => _Artist;
+            set
+            {
+                _Artist = value;
                 OnPropertyChanged();
             }
         }
@@ -38,7 +61,13 @@ namespace EP.MAINAPP.ViewModels
             set;
         }
 
-      
+        public ObservableCollection<DOMAIN.Artist> ListArtists
+        {
+            get;
+            set;
+        }
+
+
 
         public AbstractViewModelContainer() : base()
         {

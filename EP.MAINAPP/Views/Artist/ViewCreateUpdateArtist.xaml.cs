@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace EP.MAINAPP.Views.Artist
 {
     /// <summary>
-    /// Interaction logic for ViewCreateUpdateArtist.xaml
+    /// Interaction logic for ViewCreateUpdateComposer.xaml
     /// </summary>
     public partial class ViewCreateUpdateArtist : UserControl
     {

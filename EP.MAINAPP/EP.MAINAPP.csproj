@@ -38,4 +38,17 @@
     <Resource Include="DictionaryResources\Images\update.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Views\Artist\ViewCreateUpdateArtist.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Artist\ViewCreateUpdateArtist.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>
