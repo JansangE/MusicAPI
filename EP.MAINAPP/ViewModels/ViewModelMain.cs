@@ -36,14 +36,26 @@ namespace EP.MAINAPP.ViewModels
         public DelegateCommand ConfirmArtistCommand { get; set; }
         #endregion
 
+        #region Type
+        public DelegateCommand DisplayTypeCommand { get; set; }
+        public DelegateCommand DisplayCreateTypeCommand { get; set; }
+        public DelegateCommand DisplayUpdateTypeCommand { get; set; }
+        public DelegateCommand DeleteTypeCommand { get; set; }
+        public DelegateCommand ConfirmTypeCommand { get; set; }
+        #endregion
+
+        #region Piece
+        public DelegateCommand DisplayPieceCommand { get; set; }
+        public DelegateCommand DisplayCreatePieceCommand { get; set; }
+        public DelegateCommand DisplayUpdatePieceCommand { get; set; }
+        public DelegateCommand DeletePieceCommand { get; set; }
+        public DelegateCommand ConfirmPieceCommand { get; set; }
+        #endregion
+
 
         #endregion
 
         public DelegateCommand DisplayLChartCommand { get; set; }
-        public DelegateCommand DisplayPieceCommand { get; set; }
-        public DelegateCommand DisplayTypeCommand { get; set; }
-
-        
 
 
         //CRUD Composer
@@ -52,9 +64,6 @@ namespace EP.MAINAPP.ViewModels
         {
 
             DisplayLChartCommand = new DelegateCommand(DisplayLChart);
-            DisplayPieceCommand = new DelegateCommand(DisplayPieceStartup);
-            DisplayTypeCommand = new DelegateCommand(DisplayTypeStartup);
-
             //Composer
             DisplayComposerCommand = new DelegateCommand(DisplayComposerStartup);
             DisplayCreateComposerCommand = new DelegateCommand(DisplayCreateComposer);
@@ -66,6 +75,18 @@ namespace EP.MAINAPP.ViewModels
             DisplayCreateArtistCommand = new DelegateCommand(DisplayCreateArtist);
             DisplayUpdateArtistCommand = new DelegateCommand(DisplayUpdateArtist);
             DeleteArtistCommand = new DelegateCommand(DeleteArtist);
+
+            //Type
+            DisplayTypeCommand = new DelegateCommand(DisplayTypeStartup);
+            DisplayCreateTypeCommand = new DelegateCommand(DisplayCreateType);
+            DisplayUpdateTypeCommand = new DelegateCommand(DisplayUpdateType);
+            DeleteTypeCommand = new DelegateCommand(DeleteType);
+
+            //Piece
+            DisplayPieceCommand = new DelegateCommand(DisplayPieceStartup);
+            DisplayCreatePieceCommand = new DelegateCommand(DisplayCreatePiece);
+            DisplayUpdatePieceCommand = new DelegateCommand(DisplayUpdatePiece);
+            DeletePieceCommand = new DelegateCommand(DeletePiece);
 
 
         }
@@ -239,7 +260,6 @@ namespace EP.MAINAPP.ViewModels
                 MessageBox.Show($"{newArtist.NameArtist } is added to DB");
                 DisplayArtistStartup();
             }
-
         }
 
         private async void UpdateArtist()
@@ -280,6 +300,184 @@ namespace EP.MAINAPP.ViewModels
 
                     MessageBox.Show($"{selectedArtist.NameArtist} is deleted from DB");
                     DisplayArtistStartup();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Please select a artist that you want to remove");
+            }
+
+        }
+        #endregion
+
+        #region CRUD Piece
+        //CRUD Piece
+        private void DisplayCreatePiece()
+        {
+            this.ViewModel = new ViewModelCreateUpdatePiece();
+            ConfirmPieceCommand = new DelegateCommand(CreatePiece);
+        }
+
+        private void DisplayUpdatePiece()
+        {
+            var selectedPiece = ((AbstractViewModelContainer)this.ViewModel).SelectedPiece;
+            if (selectedPiece is not null)
+            {
+                this.ViewModel = new ViewModelCreateUpdatePiece(selectedPiece);
+                ConfirmPieceCommand = new DelegateCommand(UpdatePiece);
+            }
+            else
+            {
+                MessageBox.Show("Please select an artist that you want to update");
+            }
+
+
+        }
+
+        private void CreatePiece()
+        {
+            var newPiece = ((ViewModelCreateUpdatePiece)this.ViewModel).Piece;
+            var result = (this.ViewModel as ViewModelCreateUpdatePiece).AddPieceMethode(newPiece);
+
+            if (result is null)
+            {
+                MessageBox.Show("Something went wrong");
+            }
+            else
+            {
+                MessageBox.Show($"{newPiece.NamePiece } is added to DB");
+                DisplayPieceStartup();
+            }
+        }
+
+        private async void UpdatePiece()
+        {
+            var selectedPiece = ((ViewModelCreateUpdatePiece)this.ViewModel).Piece;
+
+            var result = ((ViewModelCreateUpdatePiece)this.ViewModel).UpdatePieceMethode(selectedPiece);
+
+            if (result is null)
+            {
+                MessageBox.Show("Something went wrong");
+            }
+            else
+            {
+                MessageBox.Show($"{selectedPiece.NamePiece } is updated to DB");
+                DisplayPieceStartup();
+            }
+
+        }
+
+        private async void DeletePiece()
+        {
+            var selectedPiece = ((AbstractViewModelContainer)this.ViewModel).SelectedPiece;
+
+            if (selectedPiece is not null)
+            {
+                if (MessageBox.Show($"Are you sure you want to delete {selectedPiece.NamePiece}?",
+                        "Delete artist",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    string result = null;
+
+                    using (ApiCall ac = new ApiCall())
+                    {
+                        result = await ac.DeletePiece(selectedPiece);
+                    }
+
+                    MessageBox.Show($"{selectedPiece.NamePiece} is deleted from DB");
+                    DisplayPieceStartup();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Please select a artist that you want to remove");
+            }
+
+        }
+        #endregion
+
+        #region CRUD Type
+        //CRUD Type
+        private void DisplayCreateType()
+        {
+            this.ViewModel = new ViewModelCreateUpdateType();
+            ConfirmTypeCommand = new DelegateCommand(CreateType);
+        }
+
+        private void DisplayUpdateType()
+        {
+            var selectedType = ((AbstractViewModelContainer)this.ViewModel).SelectedType;
+            if (selectedType is not null)
+            {
+                this.ViewModel = new ViewModelCreateUpdateType(selectedType);
+                ConfirmTypeCommand = new DelegateCommand(UpdateType);
+            }
+            else
+            {
+                MessageBox.Show("Please select an artist that you want to update");
+            }
+
+
+        }
+
+        private void CreateType()
+        {
+            var newType = ((ViewModelCreateUpdateType)this.ViewModel).Type;
+            var result = (this.ViewModel as ViewModelCreateUpdateType).AddTypeMethode(newType);
+
+            if (result is null)
+            {
+                MessageBox.Show("Something went wrong");
+            }
+            else
+            {
+                MessageBox.Show($"{newType.NameType } is added to DB");
+                DisplayTypeStartup();
+            }
+        }
+
+        private async void UpdateType()
+        {
+            var selectedType = ((ViewModelCreateUpdateType)this.ViewModel).Type;
+
+            var result = ((ViewModelCreateUpdateType)this.ViewModel).UpdateTypeMethode(selectedType);
+
+            if (result is null)
+            {
+                MessageBox.Show("Something went wrong");
+            }
+            else
+            {
+                MessageBox.Show($"{selectedType.NameType } is updated to DB");
+                DisplayTypeStartup();
+            }
+
+        }
+
+        private async void DeleteType()
+        {
+            var selectedType = ((AbstractViewModelContainer)this.ViewModel).SelectedType;
+
+            if (selectedType is not null)
+            {
+                if (MessageBox.Show($"Are you sure you want to delete {selectedType.NameType}?",
+                        "Delete artist",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    string result = null;
+
+                    using (ApiCall ac = new ApiCall())
+                    {
+                        result = await ac.DeleteType(selectedType);
+                    }
+
+                    MessageBox.Show($"{selectedType.NameType} is deleted from DB");
+                    DisplayTypeStartup();
                 }
 
             }

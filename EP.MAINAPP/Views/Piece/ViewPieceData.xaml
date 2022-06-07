@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EP.MAINAPP.Views.Piece"
+             xmlns:mainapp="clr-namespace:EP.MAINAPP"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="307" d:DesignWidth="623">
     <Grid>
-        <ListView ItemsSource="{Binding PiecesList}"
-                  SelectedItem="{Binding SelectedPiece}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" ItemsSource="{Binding ListPieces}"
+                  SelectedItem="{Binding SelectedPiece, Mode=TwoWay}"
                   VerticalAlignment="Stretch"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -18,12 +23,42 @@
                   HorizontalContentAlignment="Center">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Piece Name" DisplayMemberBinding="{Binding NamePiece}" Width="300"/>
-                    <GridViewColumn Header="Composer" DisplayMemberBinding="{Binding Composer}" Width="200"/>
-                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" Width="100"/>
-                    <GridViewColumn Header="Share" DisplayMemberBinding="{Binding dd}" Width="200"/>
+                    <GridViewColumn Header="Name Artist" DisplayMemberBinding="{Binding NamePiece}" Width="Auto"/>
+                    <GridViewColumn Header="Name Artist" DisplayMemberBinding="{Binding Composer.FirstName}" Width="Auto"/>
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Image Style="{DynamicResource IconAdd}">
+                <Image.InputBindings>
+                    <MouseBinding Gesture="LeftClick" 
+                                  Command="{Binding DataContext.DisplayCreatePieceCommand, 
+                                    RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
+                                    Mode=OneWay}">
+                    </MouseBinding>
+                </Image.InputBindings>
+            </Image>
+            <Image Style="{DynamicResource IconUpdate}">
+                <Image.InputBindings>
+                    <MouseBinding Gesture="LeftClick"
+                                  Command="{Binding DataContext.DisplayUpdatePieceCommand,
+                        RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
+                        Mode=OneWay}">
+                    </MouseBinding>
+                </Image.InputBindings>
+
+            </Image>
+            <Image Style="{DynamicResource IconDelete}">
+                <Image.InputBindings>
+                    <MouseBinding Gesture="LeftClick"
+                                  Command="{Binding DataContext.DeletePieceCommand,
+                        RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
+                        Mode=OneWay}">
+                    </MouseBinding>
+                </Image.InputBindings>
+            </Image>
+
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -25,6 +25,7 @@ namespace EP.DAL
         {
             using MusicContext sc = new();
             return await sc.Pieces
+                .Include(c => c.Composer)
                 .AsNoTracking()
                 .OrderBy(x => x.ID)
                 .Skip(skip)

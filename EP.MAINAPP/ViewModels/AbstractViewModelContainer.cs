@@ -15,6 +15,12 @@ namespace EP.MAINAPP.ViewModels
         private DOMAIN.Artist _Artist;
         protected DOMAIN.Artist _selectedArtist;
 
+        private DOMAIN.Type _Type;
+        protected DOMAIN.Type _selectedType;
+
+        private DOMAIN.Piece _Piece;
+        protected DOMAIN.Piece _selectedPiece;
+
         public DOMAIN.Composer Composer
         {
             get => _composer;
@@ -24,13 +30,12 @@ namespace EP.MAINAPP.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public DOMAIN.Artist SelectedArtist
+        public DOMAIN.Composer SelectedComposer
         {
-            get => _selectedArtist;
+            get => _SelectedComposer;
             set
             {
-                _selectedArtist = value;
+                _SelectedComposer = value;
                 OnPropertyChanged();
             }
         }
@@ -44,28 +49,59 @@ namespace EP.MAINAPP.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public DOMAIN.Composer SelectedComposer
+        public DOMAIN.Artist SelectedArtist
         {
-            get => _SelectedComposer;
+            get => _selectedArtist;
             set
             {
-                _SelectedComposer = value;
+                _selectedArtist = value;
                 OnPropertyChanged();
             }
         }
 
-        public ObservableCollection<DOMAIN.Composer> ListComposers
+        public DOMAIN.Type Type
         {
-            get;
-            set;
+            get => _Type;
+            set
+            {
+                _Type = value;
+                OnPropertyChanged();
+            }
+        }
+        public DOMAIN.Type SelectedType
+        {
+            get => _selectedType;
+            set
+            {
+                _selectedType = value;
+                OnPropertyChanged();
+            }
         }
 
-        public ObservableCollection<DOMAIN.Artist> ListArtists
+        public DOMAIN.Piece Piece
         {
-            get;
-            set;
+            get => _Piece;
+            set
+            {
+                _Piece = value;
+                OnPropertyChanged();
+            }
         }
+        public DOMAIN.Piece SelectedPiece
+        {
+            get => _selectedPiece;
+            set
+            {
+                _selectedPiece = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        public ObservableCollection<DOMAIN.Composer> ListComposers { get; set; }
+        public ObservableCollection<DOMAIN.Artist> ListArtists { get;  set; }
+        public ObservableCollection<DOMAIN.Type> ListTypes { get; set; }
+        public ObservableCollection<DOMAIN.Piece> ListPieces { get; set; }
 
 
 

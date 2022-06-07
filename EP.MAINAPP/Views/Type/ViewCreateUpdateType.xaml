@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="EP.MAINAPP.Views.Artist.ViewCreateUpdateArtist"
+﻿<UserControl x:Class="EP.MAINAPP.Views.Type.ViewCreateUpdateType"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,9 +8,9 @@
              xmlns:mainapp="clr-namespace:EP.MAINAPP"
              mc:Ignorable="d" 
              d:DesignHeight="307" d:DesignWidth="623" Background="AliceBlue">
-    <UserControl.Resources>
+    <!--<UserControl.Resources>
         <viewModel:MultiValuesConverter x:Key="Converter"/>
-    </UserControl.Resources>
+    </UserControl.Resources>-->
 
     <Grid>
         <Grid.RowDefinitions>
@@ -30,7 +30,7 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="1" Grid.Column="1" 
-               Content="Artist Name: " 
+               Content="Type Name: " 
                FontSize="15" 
                VerticalAlignment="Center" 
                HorizontalAlignment="Right" 
@@ -38,25 +38,24 @@
         <TextBox x:Name="textFirstName" Grid.Row="1" Grid.Column="2" 
                  VerticalAlignment="Center" 
                  HorizontalAlignment="Right" 
-                 Text="{Binding Artist.NameArtist, Mode=TwoWay}" 
-                 MinWidth="150" Height="30"
+                 Text="{Binding Type.NameType, Mode=TwoWay}" 
+                 MinWidth="150" Height="30" Width="Auto"
                  VerticalContentAlignment="Center" FontSize="13"/>
 
         
         <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" 
                 Height="30"
                 Content="Submit" FontSize="15"
-                Command="{Binding DataContext.ConfirmArtistCommand,
+                Command="{Binding DataContext.ConfirmTypeCommand,
                         RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
                         Mode=OneWay}">
         </Button>
         <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" 
                 Height="30"
                 Content="Back" FontSize="15"
-                Command="{Binding DataContext.DisplayArtistCommand,
+                Command="{Binding DataContext.DisplayTypeCommand,
                         RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
                         Mode=OneWay}">
-
         </Button>
     </Grid>
 </UserControl>

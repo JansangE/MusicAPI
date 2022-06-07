@@ -14,15 +14,6 @@ namespace EP.BLL
 
         public async Task<Composer> CreateAsync(Composer entity)
         {
-            //if (!IsValidEmail(entity.Email))
-            //{
-            //    Task<Student> exTask = new(() =>
-            //    {
-            //        throw new Exception("invalid email");
-            //    });
-            //    exTask.RunSynchronously();
-            //    return await exTask;
-            //}
 
             return await _composerDAO.CreateAsync(entity);
         }
@@ -32,14 +23,6 @@ namespace EP.BLL
             return await _composerDAO.GetAsync(skip, take);
         }
 
-        //async Task<Composer> IComposer.GetByIdAsync(int id)
-        //{
-        //    using MusicContext mc = new();
-        //    var composer = await mc.Composers
-        //        .AsNoTracking()
-        //        .SingleOrDefaultAsync(c => c.ID == id);
-        //    return composer;
-        //}
 
         public async Task<Composer> GetByIdAsync(int id)
         {

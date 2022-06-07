@@ -1,4 +1,6 @@
-﻿namespace EP.DOMAIN
+﻿using System.Text.Json.Serialization;
+
+namespace EP.DOMAIN
 {
     public class Piece
     {
@@ -8,6 +10,7 @@
         public int TypeID { get; set; }
 
         public Composer Composer { get; set; }
+
         public Type Type { get; set; }
         public ICollection<PieceArtist> Artists { get; set; }
     }

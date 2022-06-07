@@ -1,4 +1,6 @@
-﻿namespace EP.DOMAIN
+﻿using System.Text.Json.Serialization;
+
+namespace EP.DOMAIN
 {
     public class Composer
     {
@@ -8,6 +10,7 @@
         public string NickName { get; set; }
         public DateTime? Birthday { get; set; }
 
+        [JsonIgnore]
         public ICollection<Piece> Pieces { get; set; }
     }
 }

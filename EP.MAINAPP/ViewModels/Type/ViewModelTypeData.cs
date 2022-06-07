@@ -6,7 +6,20 @@ using System.Threading.Tasks;
 
 namespace EP.MAINAPP.ViewModels.Type
 {
-    public class ViewModelTypeData : ViewModelBase
+    public class ViewModelTypeData : AbstractViewModelContainer
     {
+        public ViewModelTypeData() : base()
+        {
+            Init();
+        }
+
+        private async Task Init()
+        {
+            using (ApiCall ac = new ApiCall())
+            {
+                ListTypes = await ac.GetAllTypes();
+                OnPropertyChanged(nameof(ListTypes));
+            }
+        }
     }
 }

@@ -233,16 +233,112 @@ namespace EP.MAINAPP.ViewModels
         #endregion
         //LChart
 
+        #region CRUD Type
         //Type
-
-        //Piece
-        public async Task<List<DOMAIN.Piece>> GetAllPieces()
+        public async Task<ObservableCollection<DOMAIN.Type>> GetAllTypes()
         {
-            List<DOMAIN.Piece> pieces = new List<DOMAIN.Piece>();
+            ObservableCollection<DOMAIN.Type> types = new ObservableCollection<DOMAIN.Type>();
+            HttpResponseMessage response = await _httpClient.GetAsync($"{_URL}/types");
+            if (response.IsSuccessStatusCode)
+            {
+                types = await response.Content.ReadAsAsync<ObservableCollection<DOMAIN.Type>>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return types;
+        }
+
+        public async Task<DOMAIN.Type> GetSelectedType(DOMAIN.Type type)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{_URL}/type?id={type.ID}");
+            if (response.IsSuccessStatusCode)
+            {
+                type = await response.Content.ReadAsAsync<DOMAIN.Type>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return type;
+        }
+
+        public async Task<DOMAIN.Type> AddType(DOMAIN.Type type)
+        {
+            var myContent = JsonConvert.SerializeObject(type);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync($"{_URL}/type", byteContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                type = await response.Content.ReadAsAsync<DOMAIN.Type>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return type;
+        }
+
+        public async Task<DOMAIN.Type> UpdateType(DOMAIN.Type type)
+        {
+            var myContent = JsonConvert.SerializeObject(type);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            HttpResponseMessage response = await _httpClient.PutAsync($"{_URL}/type?id={type.ID}", byteContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                type = await response.Content.ReadAsAsync<DOMAIN.Type>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return type;
+        }
+
+        public async Task<string> DeleteType(DOMAIN.Type type)
+        {
+            string result = null;
+
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{_URL}/type?id={type.ID}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                //selectedComposer = await response.Content.ReadAsAsync<DOMAIN.Composer>();
+                result = $"{type.NameType} is deleted from DB";
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+                result = "API DOES NOT RESPOND!";
+            }
+
+            return result;
+        }
+        #endregion
+
+
+        #region CRUD Piece
+        //Piece
+        public async Task<ObservableCollection<DOMAIN.Piece>> GetAllPieces()
+        {
+            ObservableCollection<DOMAIN.Piece> pieces = new ObservableCollection<DOMAIN.Piece>();
             HttpResponseMessage response = await _httpClient.GetAsync($"{_URL}/pieces");
             if (response.IsSuccessStatusCode)
             {
-                pieces = await response.Content.ReadAsAsync<List<DOMAIN.Piece>>();
+                pieces = await response.Content.ReadAsAsync<ObservableCollection<DOMAIN.Piece>>();
             }
             else
             {
@@ -251,6 +347,84 @@ namespace EP.MAINAPP.ViewModels
 
             return pieces;
         }
+
+        public async Task<DOMAIN.Piece> GetSelectedPiece(DOMAIN.Piece piece)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{_URL}/piece?id={piece.ID}");
+            if (response.IsSuccessStatusCode)
+            {
+                piece = await response.Content.ReadAsAsync<DOMAIN.Piece>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return piece;
+        }
+
+        public async Task<DOMAIN.Piece> AddPiece(DOMAIN.Piece piece)
+        {
+            var myContent = JsonConvert.SerializeObject(piece);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync($"{_URL}/piece", byteContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                piece = await response.Content.ReadAsAsync<DOMAIN.Piece>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return piece;
+        }
+
+        public async Task<DOMAIN.Piece> UpdatePiece(DOMAIN.Piece piece)
+        {
+            var myContent = JsonConvert.SerializeObject(piece);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            HttpResponseMessage response = await _httpClient.PutAsync($"{_URL}/piece?id={piece.ID}", byteContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                piece = await response.Content.ReadAsAsync<DOMAIN.Piece>();
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return piece;
+        }
+
+        public async Task<string> DeletePiece(DOMAIN.Piece piece)
+        {
+            string result = null;
+
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{_URL}/piece?id={piece.ID}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                //selectedComposer = await response.Content.ReadAsAsync<DOMAIN.Composer>();
+                result = $"{piece.NamePiece} is deleted from DB";
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+                result = "API DOES NOT RESPOND!";
+            }
+
+            return result;
+        }
+        #endregion
 
         public void Dispose()
         {
