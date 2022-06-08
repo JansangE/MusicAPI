@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace EP.MAINAPP.ViewModels.Piece
 {
@@ -19,7 +20,16 @@ namespace EP.MAINAPP.ViewModels.Piece
             {
                 ListPieces = await ac.GetAllPieces();
                 OnPropertyChanged(nameof(ListPieces));
+
+                ListComposers = await ac.GetAllComposer();
+                OnPropertyChanged(nameof(ListComposers));
+
+                ListTypes = await ac.GetAllTypes();
+                OnPropertyChanged(nameof(ListTypes));
             }
+
+            IsReady = Visibility.Visible;
+            OnPropertyChanged(nameof(IsReady));
         }
     }
 }

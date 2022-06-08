@@ -32,6 +32,7 @@ app.MapGet("/", () => "Hello World!");
 
 
 //CRUD Composer
+app.MapGet("/countComposer", async () => await composerManager.GetTotalCountAsync());
 app.MapGet("/composers", async () => await composerManager.GetAsync(0, 100));
 app.MapGet("/composer", async (int id) => await composerManager.GetByIdAsync(id));
 app.MapPost("/composer", async ([FromBody] Composer composer) =>
@@ -48,6 +49,7 @@ app.MapDelete("/composer", async (int id) => await composerManager.DeleteAsync(i
 
 
 //CRUD Artist
+app.MapGet("/countArtist", async () => await artistManager.GetTotalCountAsync());
 app.MapGet("/artists", async () => await artistManager.GetAsync(0, 100));
 app.MapGet("/artist", async (int id) => await artistManager.GetByIdAsync(id));
 app.MapPost("/artist", async ([FromBody] Artist artist) =>
@@ -63,6 +65,7 @@ app.MapPut("/artist", async (int id, [FromBody] Artist artist) =>
 app.MapDelete("/artist", async (int id) => await artistManager.DeleteAsync(id));
 
 //CRUD Type
+app.MapGet("/countType", async () => await typeManager.GetTotalCountAsync());
 app.MapGet("/types", async () => await typeManager.GetAsync(0, 100));
 app.MapGet("/type", async (int id) => await typeManager.GetByIdAsync(id));
 app.MapPost("/type", async ([FromBody] Type type) =>
@@ -78,6 +81,7 @@ app.MapPut("/type", async (int id, [FromBody] Type type) =>
 app.MapDelete("/type", async (int id) => await typeManager.DeleteAsync(id));
 
 //CRUD Piece
+app.MapGet("/countPiece", async () => await pieceManager.GetTotalCountAsync());
 app.MapGet("/pieces", async () => await pieceManager.GetAsync(0, 100));
 app.MapGet("/piece", async (int id) => await pieceManager.GetByIdAsync(id));
 app.MapPost("piece", async ([FromBody] Piece piece) =>

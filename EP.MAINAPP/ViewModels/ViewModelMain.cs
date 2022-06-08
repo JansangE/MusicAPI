@@ -17,6 +17,7 @@ namespace EP.MAINAPP.ViewModels
     public class ViewModelMain : ViewModelBase
     {
         private ViewModelBase _viewModel;
+        private ViewModelBase _viewModel2;
 
         #region DeledateCommand
 
@@ -88,7 +89,7 @@ namespace EP.MAINAPP.ViewModels
             DisplayUpdatePieceCommand = new DelegateCommand(DisplayUpdatePiece);
             DeletePieceCommand = new DelegateCommand(DeletePiece);
 
-
+            _viewModel2 = new ViewModelLChart();
         }
 
 
@@ -101,7 +102,17 @@ namespace EP.MAINAPP.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
+        public ViewModelBase ViewLiveChart
+        {
+            get => _viewModel2;
+            set
+            {
+                _viewModel2 = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private void DisplayArtistStartup()
         {
@@ -121,6 +132,7 @@ namespace EP.MAINAPP.ViewModels
         private void DisplayPieceStartup()
         {
             this.ViewModel = new ViewModelPieceData();
+
         }
 
         private void DisplayTypeStartup()
@@ -168,7 +180,13 @@ namespace EP.MAINAPP.ViewModels
             else
             {
                 MessageBox.Show($"{newComposer.FirstName }  {newComposer.LastName} is added to DB");
+
+                //Update LiveChart
+                _viewModel2 = new ViewModelLChart();
+
                 DisplayComposerStartup();
+
+
             }
 
         }
@@ -186,6 +204,10 @@ namespace EP.MAINAPP.ViewModels
             else
             {
                 MessageBox.Show($"{selectedComposer.FirstName }  {selectedComposer.LastName} is updated to DB");
+
+                //Update LiveChart
+                _viewModel2 = new ViewModelLChart();
+
                 DisplayComposerStartup();
             }
 
@@ -210,6 +232,10 @@ namespace EP.MAINAPP.ViewModels
                     }
 
                     MessageBox.Show($"{selectedComposer.NickName} is deleted from DB");
+
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
+
                     DisplayComposerStartup();
                 }
                 
@@ -259,6 +285,9 @@ namespace EP.MAINAPP.ViewModels
             {
                 MessageBox.Show($"{newArtist.NameArtist } is added to DB");
                 DisplayArtistStartup();
+
+                //Update LiveChart
+                _viewModel2 = new ViewModelLChart();
             }
         }
 
@@ -276,6 +305,9 @@ namespace EP.MAINAPP.ViewModels
             {
                 MessageBox.Show($"{selectedArtist.NameArtist } is updated to DB");
                 DisplayArtistStartup();
+
+                //Update LiveChart
+                _viewModel2 = new ViewModelLChart();
             }
 
         }
@@ -300,6 +332,9 @@ namespace EP.MAINAPP.ViewModels
 
                     MessageBox.Show($"{selectedArtist.NameArtist} is deleted from DB");
                     DisplayArtistStartup();
+
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
                 }
 
             }
@@ -315,30 +350,43 @@ namespace EP.MAINAPP.ViewModels
         //CRUD Piece
         private void DisplayCreatePiece()
         {
-            this.ViewModel = new ViewModelCreateUpdatePiece();
+            var listComposers = ((ViewModelPieceData)this.ViewModel).ListComposers;
+            var listTypes = ((ViewModelPieceData)this.ViewModel).ListTypes;
+
+            this.ViewModel = new ViewModelCreateUpdatePiece(listComposers, listTypes);
             ConfirmPieceCommand = new DelegateCommand(CreatePiece);
         }
 
         private void DisplayUpdatePiece()
         {
             var selectedPiece = ((AbstractViewModelContainer)this.ViewModel).SelectedPiece;
+            var listComposers = ((ViewModelPieceData)this.ViewModel).ListComposers;
+            var listTypes = ((ViewModelPieceData)this.ViewModel).ListTypes;
+
+
             if (selectedPiece is not null)
             {
-                this.ViewModel = new ViewModelCreateUpdatePiece(selectedPiece);
+                this.ViewModel = new ViewModelCreateUpdatePiece(selectedPiece, listComposers, listTypes);
                 ConfirmPieceCommand = new DelegateCommand(UpdatePiece);
             }
             else
             {
                 MessageBox.Show("Please select an artist that you want to update");
             }
-
-
         }
 
         private void CreatePiece()
         {
             var newPiece = ((ViewModelCreateUpdatePiece)this.ViewModel).Piece;
+            newPiece.ComposerID = newPiece.Composer.ID;
+            newPiece.TypeID = newPiece.Type.ID;
+
+
+            newPiece.Composer = null;
+            newPiece.Type = null;
             var result = (this.ViewModel as ViewModelCreateUpdatePiece).AddPieceMethode(newPiece);
+
+            
 
             if (result is null)
             {
@@ -348,6 +396,9 @@ namespace EP.MAINAPP.ViewModels
             {
                 MessageBox.Show($"{newPiece.NamePiece } is added to DB");
                 DisplayPieceStartup();
+
+                //Update LiveChart
+                _viewModel2 = new ViewModelLChart();
             }
         }
 
@@ -355,9 +406,16 @@ namespace EP.MAINAPP.ViewModels
         {
             var selectedPiece = ((ViewModelCreateUpdatePiece)this.ViewModel).Piece;
 
+            selectedPiece.ComposerID = selectedPiece.Composer.ID;
+            selectedPiece.TypeID = selectedPiece.Type.ID;
+
+
+            selectedPiece.Composer = null;
+            selectedPiece.Type = null;
+
             var result = ((ViewModelCreateUpdatePiece)this.ViewModel).UpdatePieceMethode(selectedPiece);
 
-            if (result is null)
+            if (result == null)
             {
                 MessageBox.Show("Something went wrong");
             }
@@ -365,6 +423,9 @@ namespace EP.MAINAPP.ViewModels
             {
                 MessageBox.Show($"{selectedPiece.NamePiece } is updated to DB");
                 DisplayPieceStartup();
+
+                //Update LiveChart
+                _viewModel2 = new ViewModelLChart();
             }
 
         }
@@ -389,6 +450,9 @@ namespace EP.MAINAPP.ViewModels
 
                     MessageBox.Show($"{selectedPiece.NamePiece} is deleted from DB");
                     DisplayPieceStartup();
+
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
                 }
 
             }
@@ -437,6 +501,9 @@ namespace EP.MAINAPP.ViewModels
             {
                 MessageBox.Show($"{newType.NameType } is added to DB");
                 DisplayTypeStartup();
+
+                //Update LiveChart
+                _viewModel2 = new ViewModelLChart();
             }
         }
 
@@ -454,6 +521,9 @@ namespace EP.MAINAPP.ViewModels
             {
                 MessageBox.Show($"{selectedType.NameType } is updated to DB");
                 DisplayTypeStartup();
+
+                //Update LiveChart
+                _viewModel2 = new ViewModelLChart();
             }
 
         }
@@ -478,6 +548,9 @@ namespace EP.MAINAPP.ViewModels
 
                     MessageBox.Show($"{selectedType.NameType} is deleted from DB");
                     DisplayTypeStartup();
+
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
                 }
 
             }

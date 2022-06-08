@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="EP.MAINAPP.Views.Piece.ViewCreateUpdatePiece"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EP.MAINAPP.Views"
+             xmlns:viewModel="clr-namespace:EP.MAINAPP.ViewModels"
+             xmlns:mainapp="clr-namespace:EP.MAINAPP"
+             mc:Ignorable="d" 
+             d:DesignHeight="307" d:DesignWidth="623" Background="AliceBlue">
+    <!--<UserControl.Resources>
+        <viewModel:MultiValuesConverter x:Key="Converter"/>
+    </UserControl.Resources>-->
+
+    <Grid>
+        <Grid.RowDefinitions>
+            
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="1" 
+               Content="Type Name: " 
+               FontSize="15" 
+               VerticalAlignment="Center" 
+               HorizontalAlignment="Right" 
+               Margin="0,0,20,0"/>
+        <TextBox x:Name="textFirstName" Grid.Row="1" Grid.Column="2" 
+                 VerticalAlignment="Center" 
+                 HorizontalAlignment="Right" 
+                 Text="{Binding Piece.NamePiece, Mode=TwoWay}" 
+                 MinWidth="150" Height="30" Width="Auto"
+                 VerticalContentAlignment="Center" FontSize="13"/>
+
+        <Label Grid.Row="2" Grid.Column="1" 
+               Content="Composer : " 
+               FontSize="15" 
+               VerticalAlignment="Center" 
+               HorizontalAlignment="Right" 
+               Margin="0,0,20,0"/>
+        <ComboBox Grid.Row="2" Grid.Column="2"
+                  Height="30" Width="150"
+                  ItemsSource="{Binding ListComposers}"
+                  DisplayMemberPath="NickName"
+                  IsSynchronizedWithCurrentItem="True"
+
+                  SelectedItem="{Binding Piece.Composer, Mode=TwoWay}" >
+        </ComboBox>
+
+        <Label Grid.Row="3" Grid.Column="1" 
+               Content="Type : " 
+               FontSize="15" 
+               VerticalAlignment="Center" 
+               HorizontalAlignment="Right" 
+               Margin="0,0,20,0"/>
+        <ComboBox Grid.Row="3" Grid.Column="2"
+                  Height="30" Width="150"
+                  ItemsSource="{Binding ListTypes}"
+                  DisplayMemberPath="NameType"
+                  SelectedItem="{Binding Piece.Type, Mode=TwoWay}">
+        </ComboBox>
+        
+        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" 
+                Height="30"
+                Content="Submit" FontSize="15"
+                Command="{Binding DataContext.ConfirmPieceCommand,
+                        RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
+                        Mode=OneWay}">
+        </Button>
+        <Button Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" 
+                Height="30"
+                Content="Back" FontSize="15"
+                Command="{Binding DataContext.DisplayPieceCommand,
+                        RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
+                        Mode=OneWay}">
+        </Button>
+    </Grid>
+</UserControl>

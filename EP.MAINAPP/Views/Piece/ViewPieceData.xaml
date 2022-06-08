@@ -23,13 +23,14 @@
                   HorizontalContentAlignment="Center">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name Artist" DisplayMemberBinding="{Binding NamePiece}" Width="Auto"/>
-                    <GridViewColumn Header="Name Artist" DisplayMemberBinding="{Binding Composer.FirstName}" Width="Auto"/>
+                    <GridViewColumn Header="Piece Name" DisplayMemberBinding="{Binding NamePiece}" Width="Auto"/>
+                    <GridViewColumn Header="Composer Name" DisplayMemberBinding="{Binding Composer.NickName}" Width="Auto"/>
+                    <GridViewColumn Header="Type Name" DisplayMemberBinding="{Binding Type.NameType}" Width="Auto"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding IsReady}">
             <Image Style="{DynamicResource IconAdd}">
                 <Image.InputBindings>
                     <MouseBinding Gesture="LeftClick" 

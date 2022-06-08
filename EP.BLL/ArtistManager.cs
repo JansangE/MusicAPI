@@ -11,18 +11,13 @@ namespace EP.BLL
     public class ArtistManager
     {
         private readonly ArtistDAO _artistDao = new ArtistDAO();
+
+        public async Task<int> GetTotalCountAsync()
+        {
+            return await _artistDao.GetTotalCountAsync();
+        }
         public async Task<Artist> CreateAsync(Artist entity)
         {
-            //if (!IsValidEmail(entity.Email))
-            //{
-            //    Task<Student> exTask = new(() =>
-            //    {
-            //        throw new Exception("invalid email");
-            //    });
-            //    exTask.RunSynchronously();
-            //    return await exTask;
-            //}
-
             return await _artistDao.CreateAsync(entity);
         }
 

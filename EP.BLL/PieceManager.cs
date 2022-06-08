@@ -7,18 +7,12 @@ namespace EP.BLL
     {
         private readonly PieceDAO _pieceDao = new PieceDAO();
 
+        public async Task<int> GetTotalCountAsync()
+        {
+            return await _pieceDao.GetTotalCountAsync();
+        }
         public async Task<Piece> CreateAsync(Piece entity)
         {
-            //if (!IsValidEmail(entity.Email))
-            //{
-            //    Task<Student> exTask = new(() =>
-            //    {
-            //        throw new Exception("invalid email");
-            //    });
-            //    exTask.RunSynchronously();
-            //    return await exTask;
-            //}
-
             return await _pieceDao.CreateAsync(entity);
         }
 

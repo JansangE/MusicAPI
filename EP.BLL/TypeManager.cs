@@ -12,18 +12,13 @@ namespace EP.BLL
     public class TypeManager
     {
         private readonly TypeDAO _typeDao = new TypeDAO();
+
+        public async Task<int> GetTotalCountAsync()
+        {
+            return await _typeDao.GetTotalCountAsync();
+        }
         public async Task<Type> CreateAsync(Type entity)
         {
-            //if (!IsValidEmail(entity.Email))
-            //{
-            //    Task<Student> exTask = new(() =>
-            //    {
-            //        throw new Exception("invalid email");
-            //    });
-            //    exTask.RunSynchronously();
-            //    return await exTask;
-            //}
-
             return await _typeDao.CreateAsync(entity);
         }
 

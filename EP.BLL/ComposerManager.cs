@@ -12,6 +12,10 @@ namespace EP.BLL
     {
         private readonly ComposerDAO _composerDAO = new ComposerDAO();
 
+        public async Task<int> GetTotalCountAsync()
+        {
+            return await _composerDAO.GetTotalCountAsync();
+        }
         public async Task<Composer> CreateAsync(Composer entity)
         {
 

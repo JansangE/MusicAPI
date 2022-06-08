@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -42,6 +43,9 @@
     <Compile Update="Views\Artist\ViewCreateUpdateArtist.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Piece\ViewCreateUpdatePiece.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Type\ViewCreateUpdateType.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -49,6 +53,10 @@
 
   <ItemGroup>
     <Page Update="Views\Artist\ViewCreateUpdateArtist.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Piece\ViewCreateUpdatePiece.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

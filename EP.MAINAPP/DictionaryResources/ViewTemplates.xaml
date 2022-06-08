@@ -41,9 +41,9 @@
         <ViewArtist:ViewCreateUpdateArtist/>
     </DataTemplate>
 
-    <!--<DataTemplate DataType="{x:Type ViewModelPiece:ViewModelCreateUpdatePiece}">
-        <ViewPiece:/>
-    </DataTemplate>-->
+    <DataTemplate DataType="{x:Type ViewModelPiece:ViewModelCreateUpdatePiece}">
+        <ViewPiece:ViewCreateUpdatePiece/>
+    </DataTemplate>
 
     <DataTemplate DataType="{x:Type ViewModelType:ViewModelCreateUpdateType}">
         <ViewType:ViewCreateUpdateType/>

@@ -4,11 +4,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace EP.MAINAPP.ViewModels
 {
     public abstract class AbstractViewModelContainer : ViewModelBase
     {
+        
+
         private DOMAIN.Composer _composer;
         protected DOMAIN.Composer _SelectedComposer;
 
@@ -104,6 +107,7 @@ namespace EP.MAINAPP.ViewModels
         public ObservableCollection<DOMAIN.Piece> ListPieces { get; set; }
 
 
+        public Visibility IsReady { get; set; }
 
         public AbstractViewModelContainer() : base()
         {
