@@ -27,7 +27,33 @@ namespace EP.MAINAPP.ViewModels
         {
             get => _URL;
         }
-        
+
+        public async Task<ObservableCollection<int>> GetListCountDatabase()
+        {
+            ObservableCollection<int> list = new ObservableCollection<int>();
+
+            HttpResponseMessage response1 = await _httpClient.GetAsync($"{_URL}/countArtist");
+            HttpResponseMessage response2 = await _httpClient.GetAsync($"{_URL}/countComposer");
+            HttpResponseMessage response3 = await _httpClient.GetAsync($"{_URL}/countPiece");
+            HttpResponseMessage response4 = await _httpClient.GetAsync($"{_URL}/countType");
+
+            if (response1.IsSuccessStatusCode &&
+                response2.IsSuccessStatusCode &&
+                response3.IsSuccessStatusCode &&
+                response4.IsSuccessStatusCode)
+            {
+                list.Add(await response1.Content.ReadAsAsync<int>());
+                list.Add(await response2.Content.ReadAsAsync<int>());
+                list.Add(await response3.Content.ReadAsAsync<int>());
+                list.Add(await response4.Content.ReadAsAsync<int>());
+            }
+            else
+            {
+                throw new Exception("API DOES NOT RESPOND!");
+            }
+
+            return list;
+        }
 
         #region CRUD Composer
 

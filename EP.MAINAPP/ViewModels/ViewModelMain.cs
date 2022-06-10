@@ -8,6 +8,7 @@ using EP.DOMAIN;
 using EP.MAINAPP.ViewModels.Artist;
 using EP.MAINAPP.ViewModels.Composer;
 using EP.MAINAPP.ViewModels.LChart;
+using EP.MAINAPP.ViewModels.PDF;
 using EP.MAINAPP.ViewModels.Piece;
 using EP.MAINAPP.ViewModels.Type;
 using Prism.Commands;
@@ -20,6 +21,8 @@ namespace EP.MAINAPP.ViewModels
         private ViewModelBase _viewModel2;
 
         #region DeledateCommand
+
+        public DelegateCommand DownloadPDFCommand { get; set; }
 
         #region Composer
         public DelegateCommand DisplayComposerCommand { get; set; }
@@ -117,11 +120,13 @@ namespace EP.MAINAPP.ViewModels
         private void DisplayArtistStartup()
         {
             this.ViewModel = new ViewModelArtistData();
+            DownloadPDFCommand = new DelegateCommand(DownloadPDF);
         }
 
         private void DisplayComposerStartup()
         {
             this.ViewModel = new ViewModelComposerData();
+            DownloadPDFCommand = new DelegateCommand(DownloadPDF);
         }
 
         private void DisplayLChart()
@@ -132,19 +137,17 @@ namespace EP.MAINAPP.ViewModels
         private void DisplayPieceStartup()
         {
             this.ViewModel = new ViewModelPieceData();
+            DownloadPDFCommand = new DelegateCommand(DownloadPDF);
 
         }
 
         private void DisplayTypeStartup()
         {
             this.ViewModel = new ViewModelTypeData();
+            DownloadPDFCommand = new DelegateCommand(DownloadPDF);
         }
 
         #region CRUD Composer
-
-        
-
-        
         //CRUD Composer
         private void DisplayCreateComposer()
         {
@@ -171,44 +174,57 @@ namespace EP.MAINAPP.ViewModels
         private void CreateComposer()
         {
             var newComposer = ((ViewModelCreateUpdateComposer)this.ViewModel).Composer;
-            var result = (this.ViewModel as ViewModelCreateUpdateComposer).AddComposerMethode(newComposer);
-
-            if (result is null)
+            if (!AllRequired(this.ViewModel, newComposer))
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show("Please complete all the field");
             }
             else
             {
-                MessageBox.Show($"{newComposer.FirstName }  {newComposer.LastName} is added to DB");
+                var result = (this.ViewModel as ViewModelCreateUpdateComposer).AddComposerMethode(newComposer);
 
-                //Update LiveChart
-                _viewModel2 = new ViewModelLChart();
+                if (result is null)
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+                else
+                {
+                    MessageBox.Show($"{newComposer.FirstName }  {newComposer.LastName} is added to DB");
+                    DisplayComposerStartup();
 
-                DisplayComposerStartup();
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
+                    OnPropertyChanged(nameof(ViewLiveChart));
 
 
+                }
             }
-
         }
 
         private async void UpdateComposer()
         {
             var selectedComposer = ((ViewModelCreateUpdateComposer)this.ViewModel).Composer;
 
-            var result = ((ViewModelCreateUpdateComposer)this.ViewModel).UpdateComposerMethode(selectedComposer);
-
-            if (result is null)
+            if (!AllRequired(this.ViewModel, selectedComposer))
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show("Please complete all the field");
             }
             else
             {
-                MessageBox.Show($"{selectedComposer.FirstName }  {selectedComposer.LastName} is updated to DB");
+                var result = ((ViewModelCreateUpdateComposer)this.ViewModel).UpdateComposerMethode(selectedComposer);
 
-                //Update LiveChart
-                _viewModel2 = new ViewModelLChart();
+                if (result is null)
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+                else
+                {
+                    MessageBox.Show($"{selectedComposer.FirstName }  {selectedComposer.LastName} is updated to DB");
+                    DisplayComposerStartup();
 
-                DisplayComposerStartup();
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
+                    OnPropertyChanged(nameof(ViewLiveChart));
+                }
             }
 
         }
@@ -232,11 +248,11 @@ namespace EP.MAINAPP.ViewModels
                     }
 
                     MessageBox.Show($"{selectedComposer.NickName} is deleted from DB");
+                    DisplayComposerStartup();
 
                     //Update LiveChart
                     _viewModel2 = new ViewModelLChart();
-
-                    DisplayComposerStartup();
+                    OnPropertyChanged(nameof(ViewLiveChart));
                 }
                 
             }
@@ -275,39 +291,58 @@ namespace EP.MAINAPP.ViewModels
         private void CreateArtist()
         {
             var newArtist = ((ViewModelCreateUpdateArtist)this.ViewModel).Artist;
-            var result = (this.ViewModel as ViewModelCreateUpdateArtist).AddArtistMethode(newArtist);
 
-            if (result is null)
+            if (!AllRequired(this.ViewModel, newArtist))
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show("Please fill all the required field");
             }
             else
             {
-                MessageBox.Show($"{newArtist.NameArtist } is added to DB");
-                DisplayArtistStartup();
+                var result = (this.ViewModel as ViewModelCreateUpdateArtist).AddArtistMethode(newArtist);
 
-                //Update LiveChart
-                _viewModel2 = new ViewModelLChart();
+                if (result is null)
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+                else
+                {
+                    MessageBox.Show($"{newArtist.NameArtist } is added to DB");
+                    DisplayArtistStartup();
+
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
+                    OnPropertyChanged(nameof(ViewLiveChart));
+                }
             }
+
+           
         }
 
         private async void UpdateArtist()
         {
             var selectedArtist = ((ViewModelCreateUpdateArtist)this.ViewModel).Artist;
 
-            var result = ((ViewModelCreateUpdateArtist)this.ViewModel).UpdateArtistMethode(selectedArtist);
-
-            if (result is null)
+            if (!AllRequired(this.ViewModel, selectedArtist))
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show("Please fill all the required field");
             }
             else
             {
-                MessageBox.Show($"{selectedArtist.NameArtist } is updated to DB");
-                DisplayArtistStartup();
+                var result = ((ViewModelCreateUpdateArtist)this.ViewModel).UpdateArtistMethode(selectedArtist);
 
-                //Update LiveChart
-                _viewModel2 = new ViewModelLChart();
+                if (result is null)
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+                else
+                {
+                    MessageBox.Show($"{selectedArtist.NameArtist} is updated to DB");
+                    DisplayArtistStartup();
+
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
+                    OnPropertyChanged(nameof(ViewLiveChart));
+                }
             }
 
         }
@@ -335,6 +370,7 @@ namespace EP.MAINAPP.ViewModels
 
                     //Update LiveChart
                     _viewModel2 = new ViewModelLChart();
+                    OnPropertyChanged(nameof(ViewLiveChart));
                 }
 
             }
@@ -378,56 +414,73 @@ namespace EP.MAINAPP.ViewModels
         private void CreatePiece()
         {
             var newPiece = ((ViewModelCreateUpdatePiece)this.ViewModel).Piece;
-            newPiece.ComposerID = newPiece.Composer.ID;
-            newPiece.TypeID = newPiece.Type.ID;
 
-
-            newPiece.Composer = null;
-            newPiece.Type = null;
-            var result = (this.ViewModel as ViewModelCreateUpdatePiece).AddPieceMethode(newPiece);
-
-            
-
-            if (result is null)
+            if (!AllRequired(this.ViewModel, newPiece))
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show("Please fill all the required fields");
             }
             else
             {
-                MessageBox.Show($"{newPiece.NamePiece } is added to DB");
-                DisplayPieceStartup();
+                newPiece.ComposerID = newPiece.Composer.ID;
+                newPiece.TypeID = newPiece.Type.ID;
 
-                //Update LiveChart
-                _viewModel2 = new ViewModelLChart();
+
+                newPiece.Composer = null;
+                newPiece.Type = null;
+                var result = (this.ViewModel as ViewModelCreateUpdatePiece).AddPieceMethode(newPiece);
+
+
+
+                if (result is null)
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+                else
+                {
+                    MessageBox.Show($"{newPiece.NamePiece } is added to DB");
+                    DisplayPieceStartup();
+
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
+                    OnPropertyChanged(nameof(ViewLiveChart));
+                }
             }
+            
         }
 
         private async void UpdatePiece()
         {
             var selectedPiece = ((ViewModelCreateUpdatePiece)this.ViewModel).Piece;
 
-            selectedPiece.ComposerID = selectedPiece.Composer.ID;
-            selectedPiece.TypeID = selectedPiece.Type.ID;
-
-
-            selectedPiece.Composer = null;
-            selectedPiece.Type = null;
-
-            var result = ((ViewModelCreateUpdatePiece)this.ViewModel).UpdatePieceMethode(selectedPiece);
-
-            if (result == null)
+            if (!AllRequired(this.ViewModel, selectedPiece))
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show("Please fill all the required fields");
             }
             else
             {
-                MessageBox.Show($"{selectedPiece.NamePiece } is updated to DB");
-                DisplayPieceStartup();
+                selectedPiece.ComposerID = selectedPiece.Composer.ID;
+                selectedPiece.TypeID = selectedPiece.Type.ID;
 
-                //Update LiveChart
-                _viewModel2 = new ViewModelLChart();
+
+                selectedPiece.Composer = null;
+                selectedPiece.Type = null;
+
+                var result = ((ViewModelCreateUpdatePiece)this.ViewModel).UpdatePieceMethode(selectedPiece);
+
+                if (result == null)
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+                else
+                {
+                    MessageBox.Show($"{selectedPiece.NamePiece } is updated to DB");
+                    DisplayPieceStartup();
+
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
+                    OnPropertyChanged(nameof(ViewLiveChart));
+                }
             }
-
         }
 
         private async void DeletePiece()
@@ -453,6 +506,7 @@ namespace EP.MAINAPP.ViewModels
 
                     //Update LiveChart
                     _viewModel2 = new ViewModelLChart();
+                    OnPropertyChanged(nameof(ViewLiveChart));
                 }
 
             }
@@ -491,19 +545,29 @@ namespace EP.MAINAPP.ViewModels
         private void CreateType()
         {
             var newType = ((ViewModelCreateUpdateType)this.ViewModel).Type;
-            var result = (this.ViewModel as ViewModelCreateUpdateType).AddTypeMethode(newType);
 
-            if (result is null)
+            if (!AllRequired(this.ViewModel, newType))
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show("Please fill all the required field");
             }
             else
             {
-                MessageBox.Show($"{newType.NameType } is added to DB");
-                DisplayTypeStartup();
 
-                //Update LiveChart
-                _viewModel2 = new ViewModelLChart();
+                var result = (this.ViewModel as ViewModelCreateUpdateType).AddTypeMethode(newType);
+
+                if (result is null)
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+                else
+                {
+                    MessageBox.Show($"{newType.NameType} is added to DB");
+                    DisplayTypeStartup();
+
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
+                    OnPropertyChanged(nameof(ViewLiveChart));
+                }
             }
         }
 
@@ -511,19 +575,28 @@ namespace EP.MAINAPP.ViewModels
         {
             var selectedType = ((ViewModelCreateUpdateType)this.ViewModel).Type;
 
-            var result = ((ViewModelCreateUpdateType)this.ViewModel).UpdateTypeMethode(selectedType);
-
-            if (result is null)
+            if (!AllRequired(this.ViewModel, selectedType))
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show("Please fill all the required field");
             }
             else
             {
-                MessageBox.Show($"{selectedType.NameType } is updated to DB");
-                DisplayTypeStartup();
 
-                //Update LiveChart
-                _viewModel2 = new ViewModelLChart();
+                var result = ((ViewModelCreateUpdateType)this.ViewModel).UpdateTypeMethode(selectedType);
+
+                if (result is null)
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+                else
+                {
+                    MessageBox.Show($"{selectedType.NameType} is updated to DB");
+                    DisplayTypeStartup();
+
+                    //Update LiveChart
+                    _viewModel2 = new ViewModelLChart();
+                    OnPropertyChanged(nameof(ViewLiveChart));
+                }
             }
 
         }
@@ -551,6 +624,7 @@ namespace EP.MAINAPP.ViewModels
 
                     //Update LiveChart
                     _viewModel2 = new ViewModelLChart();
+                    OnPropertyChanged(nameof(ViewLiveChart));
                 }
 
             }
@@ -561,5 +635,61 @@ namespace EP.MAINAPP.ViewModels
 
         }
         #endregion
+
+        private bool AllRequired(ViewModelBase viewModel, object item)
+        {
+            if (viewModel is ViewModelCreateUpdateArtist)
+            {
+                var tempItem = ((ViewModelCreateUpdateArtist)viewModel).Artist;
+                return tempItem.NameArtist != null && tempItem.NameArtist != string.Empty;
+            }
+            else if (viewModel is ViewModelCreateUpdateComposer)
+            {
+                var tempItem = ((ViewModelCreateUpdateComposer)viewModel).Composer;
+                return tempItem.FirstName != null && tempItem.FirstName != string.Empty &&
+                       tempItem.LastName != null && tempItem.LastName != string.Empty &&
+                       tempItem.Birthday != null;
+            }
+            else if (viewModel is ViewModelCreateUpdatePiece)
+            {
+                var tempItem = ((ViewModelCreateUpdatePiece)viewModel).Piece;
+                return tempItem.NamePiece != null && tempItem.NamePiece != string.Empty &&
+                       tempItem.Composer != null && tempItem.Type != null;
+            }
+            else
+            {
+                var tempItem = ((ViewModelCreateUpdateType)viewModel).Type;
+                return tempItem.NameType != null && tempItem.NameType != string.Empty;
+            }
+
+            return false;
+        }
+        private void DownloadPDF()
+        {
+            if (this.ViewModel is ViewModelArtistData)
+            {
+                var list = ((ViewModelArtistData)this.ViewModel).ListArtists;
+
+                var result = new ViewModelPDF(list);
+            }
+            else if (this.ViewModel is ViewModelComposerData)
+            {
+                var list = ((ViewModelComposerData)this.ViewModel).ListComposers;
+
+                var result = new ViewModelPDF(list);
+            }
+            else if (this.ViewModel is ViewModelPieceData)
+            {
+                var list = ((ViewModelPieceData)this.ViewModel).ListPieces;
+
+                var result = new ViewModelPDF(list);
+            }
+            else if (this.ViewModel is ViewModelTypeData)
+            {
+                var list = ((ViewModelTypeData)this.ViewModel).ListTypes;
+
+                var result = new ViewModelPDF(list);
+            }
+        }
     }
 }

@@ -38,7 +38,7 @@
 
 
         </Grid>
-        <Grid Grid.Row="1" Margin="20">
+        <Grid Grid.Row="1" Margin="20,0,20,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2*"/>
@@ -49,13 +49,11 @@
                             HorizontalContentAlignment="Center">
 
             </ContentControl>
-            <Grid Grid.Column="1">
-                <ScrollViewer Grid.Row="0" >
-                    <ContentControl x:Name="ctnViews" Content="{Binding ViewModel}" 
-                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                    ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
-                </ScrollViewer>
-            </Grid>
+            <ContentControl Grid.Column="1" x:Name="ctnViews" Content="{Binding ViewModel}" 
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                            Margin="0,0,0,20"/>
+           
             
         </Grid>
     </Grid>

@@ -8,13 +8,8 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance  viewModel:ViewModelLChart}">
     <Grid>
-        <lvc:PieChart LegendLocation="Bottom"  Hoverable="True" Series="{Binding SeriesCollection}" >
-            <lvc:PieChart.ChartLegend>
-                <lvc:DefaultLegend BulletSize="20"></lvc:DefaultLegend>
-            </lvc:PieChart.ChartLegend>
-            <lvc:PieChart.DataTooltip>
-                <lvc:DefaultTooltip BulletSize="20"></lvc:DefaultTooltip>
-            </lvc:PieChart.DataTooltip>
+        <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection}">
+            
         </lvc:PieChart>
-    </Grid>
+</Grid>
 </UserControl>

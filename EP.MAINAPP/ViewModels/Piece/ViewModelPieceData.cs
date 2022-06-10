@@ -11,6 +11,9 @@ namespace EP.MAINAPP.ViewModels.Piece
     {
         public ViewModelPieceData() : base()
         {
+            IsReady = Visibility.Hidden;
+            OnPropertyChanged(nameof(IsReady));
+
             Init();
         }
 

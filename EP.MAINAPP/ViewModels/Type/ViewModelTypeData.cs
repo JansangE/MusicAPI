@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace EP.MAINAPP.ViewModels.Type
 {
@@ -10,6 +11,9 @@ namespace EP.MAINAPP.ViewModels.Type
     {
         public ViewModelTypeData() : base()
         {
+            IsReady = Visibility.Hidden;
+            OnPropertyChanged(nameof(IsReady));
+
             Init();
         }
 
@@ -20,6 +24,9 @@ namespace EP.MAINAPP.ViewModels.Type
                 ListTypes = await ac.GetAllTypes();
                 OnPropertyChanged(nameof(ListTypes));
             }
+
+            IsReady = Visibility.Visible;
+            OnPropertyChanged(nameof(IsReady));
         }
     }
 }

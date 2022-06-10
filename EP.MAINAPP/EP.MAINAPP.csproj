@@ -9,7 +9,12 @@
 
   <ItemGroup>
     <None Remove="DictionaryResources\Images\add.png" />
+    <None Remove="DictionaryResources\Images\background1.jpg" />
+    <None Remove="DictionaryResources\Images\background2.jpg" />
+    <None Remove="DictionaryResources\Images\background3.jpg" />
+    <None Remove="DictionaryResources\Images\background4.jpg" />
     <None Remove="DictionaryResources\Images\delete.png" />
+    <None Remove="DictionaryResources\Images\download-pdf.png" />
     <None Remove="DictionaryResources\Images\update.png" />
   </ItemGroup>
 
@@ -25,6 +30,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="PDFSharp.NetStandard2" Version="1.51.5185.1" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
   </ItemGroup>
@@ -35,7 +41,12 @@
 
   <ItemGroup>
     <Resource Include="DictionaryResources\Images\add.png" />
+    <Resource Include="DictionaryResources\Images\background1.jpg" />
+    <Resource Include="DictionaryResources\Images\background2.jpg" />
+    <Resource Include="DictionaryResources\Images\background3.jpg" />
+    <Resource Include="DictionaryResources\Images\background4.jpg" />
     <Resource Include="DictionaryResources\Images\delete.png" />
+    <Resource Include="DictionaryResources\Images\download-pdf.png" />
     <Resource Include="DictionaryResources\Images\update.png" />
   </ItemGroup>
 

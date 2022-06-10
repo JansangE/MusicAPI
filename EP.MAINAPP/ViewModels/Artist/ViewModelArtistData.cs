@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace EP.MAINAPP.ViewModels.Artist
 {
@@ -10,6 +11,8 @@ namespace EP.MAINAPP.ViewModels.Artist
     {
         public ViewModelArtistData() : base()
         {
+            IsReady = Visibility.Hidden;
+            OnPropertyChanged(nameof(IsReady));
             Init();
         }
 
@@ -20,6 +23,9 @@ namespace EP.MAINAPP.ViewModels.Artist
                 ListArtists = await ac.GetAllArtists();
                 OnPropertyChanged(nameof(ListArtists));
             }
+
+            IsReady = Visibility.Visible;
+            OnPropertyChanged(nameof(IsReady));
         }
     }
 }

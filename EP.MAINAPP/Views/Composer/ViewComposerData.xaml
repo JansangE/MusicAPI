@@ -9,29 +9,13 @@
              d:DesignHeight="307" d:DesignWidth="623">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="6*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="0" ItemsSource="{Binding ListComposers}"
-                  SelectedItem="{Binding SelectedComposer, Mode=TwoWay}"
-                  VerticalAlignment="Stretch"
-                  SelectionMode="Single"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.CanContentScroll="True"
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Center">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="First name" DisplayMemberBinding="{Binding FirstName}" Width="Auto"/>
-                    <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding LastName}" Width="Auto"/>
-                    <GridViewColumn Header="Nick name" DisplayMemberBinding="{Binding NickName}" Width="Auto"/>
-                    <GridViewColumn Header="Date of Birth" DisplayMemberBinding="{Binding Birthday, StringFormat=d}" Width="Auto"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center"
+                    Visibility="{Binding IsReady}"
+                    Margin="0,0,0,10">
             <Image Style="{DynamicResource IconAdd}">
                 <Image.InputBindings>
                     <MouseBinding Gesture="LeftClick" 
@@ -49,7 +33,7 @@
                         Mode=OneWay}">
                     </MouseBinding>
                 </Image.InputBindings>
-               
+
             </Image>
             <Image Style="{DynamicResource IconDelete}">
                 <Image.InputBindings>
@@ -60,7 +44,37 @@
                     </MouseBinding>
                 </Image.InputBindings>
             </Image>
+            <Image Style="{DynamicResource IconPDF}">
+                <Image.InputBindings>
+                    <MouseBinding Gesture="LeftClick"
+                                  Command="{Binding DataContext.DownloadPDFCommand,
+                        RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
+                        Mode=OneWay}">
+                    </MouseBinding>
+                </Image.InputBindings>
+            </Image>
 
         </StackPanel>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding ListComposers}"
+                  SelectedItem="{Binding SelectedComposer, Mode=TwoWay}"
+                  VerticalAlignment="Stretch"
+                  SelectionMode="Single"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  Height="262">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="First name" DisplayMemberBinding="{Binding FirstName}" Width="Auto"/>
+                    <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding LastName}" Width="Auto"/>
+                    <GridViewColumn Header="Nick name" DisplayMemberBinding="{Binding NickName}" Width="Auto"/>
+                    <GridViewColumn Header="Date of Birth" DisplayMemberBinding="{Binding Birthday, StringFormat=d}" Width="Auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </UserControl>

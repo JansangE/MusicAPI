@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using EP.DOMAIN;
 
 namespace EP.MAINAPP.ViewModels.Composer
@@ -13,6 +14,8 @@ namespace EP.MAINAPP.ViewModels.Composer
         
         public ViewModelComposerData() : base()
         {
+            IsReady = Visibility.Hidden;
+            OnPropertyChanged(nameof(IsReady));
             Init();
         }
 
@@ -23,6 +26,9 @@ namespace EP.MAINAPP.ViewModels.Composer
                 ListComposers = await ac.GetAllComposer();
                 OnPropertyChanged(nameof(ListComposers));
             }
+
+            IsReady = Visibility.Visible;
+            OnPropertyChanged(nameof(IsReady));
         }
     }
 }

@@ -9,28 +9,13 @@
              d:DesignHeight="307" d:DesignWidth="623">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="6*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="0" ItemsSource="{Binding ListPieces}"
-                  SelectedItem="{Binding SelectedPiece, Mode=TwoWay}"
-                  VerticalAlignment="Stretch"
-                  SelectionMode="Single"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.CanContentScroll="True"
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Center">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Piece Name" DisplayMemberBinding="{Binding NamePiece}" Width="Auto"/>
-                    <GridViewColumn Header="Composer Name" DisplayMemberBinding="{Binding Composer.NickName}" Width="Auto"/>
-                    <GridViewColumn Header="Type Name" DisplayMemberBinding="{Binding Type.NameType}" Width="Auto"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding IsReady}">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center"
+                    Margin="0,0,0,10"
+                    Visibility="{Binding IsReady}">
             <Image Style="{DynamicResource IconAdd}">
                 <Image.InputBindings>
                     <MouseBinding Gesture="LeftClick" 
@@ -59,7 +44,34 @@
                     </MouseBinding>
                 </Image.InputBindings>
             </Image>
+            <Image Style="{DynamicResource IconPDF}">
+                <Image.InputBindings>
+                    <MouseBinding Gesture="LeftClick"
+                                  Command="{Binding DataContext.DownloadPDFCommand,
+                        RelativeSource={RelativeSource AncestorType={x:Type mainapp:MainWindow}},
+                        Mode=OneWay}">
+                    </MouseBinding>
+                </Image.InputBindings>
+            </Image>
 
         </StackPanel>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding ListPieces}"
+                  SelectedItem="{Binding SelectedPiece, Mode=TwoWay}"
+                  SelectionMode="Single"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  Height="262">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Piece Name" DisplayMemberBinding="{Binding NamePiece}" Width="Auto"/>
+                    <GridViewColumn Header="Composer Name" DisplayMemberBinding="{Binding Composer.NickName}" Width="Auto"/>
+                    <GridViewColumn Header="Type Name" DisplayMemberBinding="{Binding Type.NameType}" Width="Auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

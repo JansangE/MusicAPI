@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,47 +12,68 @@ namespace EP.MAINAPP.ViewModels.LChart
 {
     public class ViewModelLChart : AbstractViewModelContainer
     {
-        public SeriesCollection SeriesCollection { get; set; }
+        private SeriesCollection _seriesCollection;
+        
+
+        public SeriesCollection SeriesCollection
+        {
+            get
+            {
+                return _seriesCollection;
+            }
+            set
+            {
+                _seriesCollection = value;
+                OnPropertyChanged();
+              
+            }
+        }
         public ViewModelLChart()
         {
             Init();
         }
 
-        private void Init()
+        private async void Init()
         {
+            ObservableCollection<int> list = new ObservableCollection<int>();
             using (ApiCall ac = new ApiCall())
             {
-                //ListPieces = await ac.
+                list = await ac.GetListCountDatabase();
             }
-            SeriesCollection = new SeriesCollection
+
+            _seriesCollection = new SeriesCollection
             {
                 new PieSeries
                 {
-                    Title = "Chrome",
-                    Values = new ChartValues<ObservableValue> { new ObservableValue(100) },
+                    Title = "Artist",
+                    Values = new ChartValues<int> {list.ElementAt(0)},
                     DataLabels = true
                 },
                 new PieSeries
                 {
-                    Title = "Mozilla",
-                    Values = new ChartValues<ObservableValue> { new ObservableValue(2) },
+                    Title = "Composer",
+                    Values = new ChartValues<int> {list.ElementAt(1)},
                     DataLabels = true
                 },
                 new PieSeries
                 {
-                    Title = "Opera",
-                    Values = new ChartValues<ObservableValue> { new ObservableValue(3) },
+                    Title = "Piece",
+                    Values = new ChartValues<int> {list.ElementAt(2)},
                     DataLabels = true
                 },
                 new PieSeries
                 {
-                    Title = "Explorer",
-                    Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
+                    Title = "Type",
+                    Values = new ChartValues<int> {list.ElementAt(3)},
                     DataLabels = true
                 }
             };
 
+            
+            OnPropertyChanged(nameof(SeriesCollection));
+            
         }
+
     }
 
 }
