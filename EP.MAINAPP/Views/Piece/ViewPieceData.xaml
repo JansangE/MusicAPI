@@ -56,22 +56,14 @@
 
         </StackPanel>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding ListPieces}"
-                  SelectedItem="{Binding SelectedPiece, Mode=TwoWay}"
-                  SelectionMode="Single"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.CanContentScroll="True"
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Center"
-                  Height="262">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Piece Name" DisplayMemberBinding="{Binding NamePiece}" Width="Auto"/>
-                    <GridViewColumn Header="Composer Name" DisplayMemberBinding="{Binding Composer.NickName}" Width="Auto"/>
-                    <GridViewColumn Header="Type Name" DisplayMemberBinding="{Binding Type.NameType}" Width="Auto"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ListPieces}"
+                  SelectedItem="{Binding SelectedPiece, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Piece name" Binding="{Binding NamePiece}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Composer name" Binding="{Binding Composer.NickName}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Type name" Binding="{Binding Type.NameType}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
     </Grid>
 </UserControl>

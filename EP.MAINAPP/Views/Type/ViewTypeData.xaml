@@ -56,22 +56,13 @@
 
         </StackPanel>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding ListTypes}"
-                  SelectedItem="{Binding SelectedType, Mode=TwoWay}"
-                  VerticalAlignment="Stretch"
-                  SelectionMode="Single"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.CanContentScroll="True"
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Center"
-                  Height="262">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name Type" DisplayMemberBinding="{Binding NameType}" Width="300"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ListTypes}"
+                  SelectedItem="{Binding SelectedType, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Type name" Binding="{Binding NameType}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
 
     </Grid>
 </UserControl>

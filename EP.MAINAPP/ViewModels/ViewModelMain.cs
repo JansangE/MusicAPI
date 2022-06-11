@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using EP.DOMAIN;
 using EP.MAINAPP.ViewModels.Artist;
 using EP.MAINAPP.ViewModels.Composer;
@@ -61,6 +62,8 @@ namespace EP.MAINAPP.ViewModels
 
         public DelegateCommand DisplayLChartCommand { get; set; }
 
+        public DelegateCommand ExitCommand { get; set; }
+
 
         //CRUD Composer
 
@@ -92,9 +95,14 @@ namespace EP.MAINAPP.ViewModels
             DisplayUpdatePieceCommand = new DelegateCommand(DisplayUpdatePiece);
             DeletePieceCommand = new DelegateCommand(DeletePiece);
 
-            _viewModel2 = new ViewModelLChart();
-        }
+            ExitCommand = new DelegateCommand(ExitMethode);
 
+            _viewModel2 = new ViewModelLChart();
+            
+            DisplayPieceStartup();
+
+
+        }
 
         public ViewModelBase ViewModel
         {
@@ -111,14 +119,27 @@ namespace EP.MAINAPP.ViewModels
             get => _viewModel2;
             set
             {
+                
                 _viewModel2 = value;
+               
                 OnPropertyChanged();
             }
+        }
+
+        private void ExitMethode()
+        {
+            if (MessageBox.Show("Do you want to leave this beautiful application?", "And you sure", 
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Environment.Exit(0);
+            }
+
         }
 
 
         private void DisplayArtistStartup()
         {
+
             this.ViewModel = new ViewModelArtistData();
             DownloadPDFCommand = new DelegateCommand(DownloadPDF);
         }
@@ -691,5 +712,6 @@ namespace EP.MAINAPP.ViewModels
                 var result = new ViewModelPDF(list);
             }
         }
+
     }
 }

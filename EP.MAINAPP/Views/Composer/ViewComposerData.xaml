@@ -56,25 +56,16 @@
 
         </StackPanel>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding ListComposers}"
-                  SelectedItem="{Binding SelectedComposer, Mode=TwoWay}"
-                  VerticalAlignment="Stretch"
-                  SelectionMode="Single"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.CanContentScroll="True"
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Center"
-                  Height="262">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="First name" DisplayMemberBinding="{Binding FirstName}" Width="Auto"/>
-                    <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding LastName}" Width="Auto"/>
-                    <GridViewColumn Header="Nick name" DisplayMemberBinding="{Binding NickName}" Width="Auto"/>
-                    <GridViewColumn Header="Date of Birth" DisplayMemberBinding="{Binding Birthday, StringFormat=d}" Width="Auto"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ListComposers}"
+                  SelectedItem="{Binding SelectedComposer, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First name" Binding="{Binding FirstName}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Last name" Binding="{Binding LastName}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Nick name" Binding="{Binding NickName}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Date of Birth" Binding="{Binding Birthday, StringFormat=d MMMM yyyy}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
 
     </Grid>
 </UserControl>

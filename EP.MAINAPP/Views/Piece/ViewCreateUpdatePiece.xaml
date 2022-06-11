@@ -7,7 +7,7 @@
              xmlns:viewModel="clr-namespace:EP.MAINAPP.ViewModels"
              xmlns:mainapp="clr-namespace:EP.MAINAPP"
              mc:Ignorable="d" 
-             d:DesignHeight="307" d:DesignWidth="623" Background="AliceBlue">
+             d:DesignHeight="307" d:DesignWidth="623" Background="Wheat">
     <!--<UserControl.Resources>
         <viewModel:MultiValuesConverter x:Key="Converter"/>
     </UserControl.Resources>-->

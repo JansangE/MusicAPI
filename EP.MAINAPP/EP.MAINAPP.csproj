@@ -15,7 +15,12 @@
     <None Remove="DictionaryResources\Images\background4.jpg" />
     <None Remove="DictionaryResources\Images\delete.png" />
     <None Remove="DictionaryResources\Images\download-pdf.png" />
+    <None Remove="DictionaryResources\Images\logout.png" />
+    <None Remove="DictionaryResources\Images\playlist.png" />
     <None Remove="DictionaryResources\Images\update.png" />
+    <None Remove="Views\background1.jpg" />
+    <None Remove="Views\background2.jpg" />
+    <None Remove="Views\background3.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,7 +52,12 @@
     <Resource Include="DictionaryResources\Images\background4.jpg" />
     <Resource Include="DictionaryResources\Images\delete.png" />
     <Resource Include="DictionaryResources\Images\download-pdf.png" />
+    <Resource Include="DictionaryResources\Images\logout.png" />
+    <Resource Include="DictionaryResources\Images\playlist.png" />
     <Resource Include="DictionaryResources\Images\update.png" />
+    <Resource Include="Views\background1.jpg" />
+    <Resource Include="Views\background2.jpg" />
+    <Resource Include="Views\background3.jpg" />
   </ItemGroup>
 
   <ItemGroup>
